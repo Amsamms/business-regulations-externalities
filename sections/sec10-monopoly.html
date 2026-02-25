@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10. Monopoly + Externalities - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>10. Monopoly + Negative Externalities</h1>
+<p class="subtitle">Based on Dr. Said's Figures 10, 10-a, 10-b (slides pp. 47-56)</p>
+
+<section>
+<h2>Two Opposing Distortions</h2>
+<p>When a monopoly exists alongside negative externalities, there are <strong>two distortions pulling in opposite directions</strong>:</p>
+<ol>
+<li><strong>Monopoly:</strong> Underproduces (restricts output below competitive level to raise price)</li>
+<li><strong>Negative Externality:</strong> Overproduces (ignores external cost, produces too much)</li>
+</ol>
+
+<h2>Three Scenarios</h2>
+<div class="chart-controls">
+<span class="toggle-btn active" onclick="showMonopolyScenario('perfect',this)">Perfect Offset (Fig 10)</span>
+<span class="toggle-btn" onclick="showMonopolyScenario('over',this)">Monopolist Overproduces (Fig 10-a)</span>
+<span class="toggle-btn" onclick="showMonopolyScenario('under',this)">Monopolist Underproduces (Fig 10-b)</span>
+</div>
+<div id="chart-monopoly" class="plotly-chart"></div>
+
+<div class="slider-container">
+<label>MEC Level: </label>
+<input type="range" min="2" max="25" value="10" id="mec-mono-slider" oninput="updateMonopolyMEC(this.value)">
+<span class="value" id="mec-mono-val">$10</span>
+</div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Figure 10: Perfect Offset (q_monopoly = q_efficient)</div>
+<div class="accordion-body">
+<p>The monopolist produces q1 where MR = MPC. By coincidence, this equals the efficient output where MSB = MSC (at E3). The two distortions <strong>perfectly cancel out</strong>.</p>
+<p><strong>Result:</strong> No government intervention needed! The market is already at efficiency.</p>
+<p>This is the "second best solution" - the monopolistic distortion offsets the externality distortion.</p>
+</div>
+</div>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Figure 10-a: Monopolist Still Overproduces (q_monopoly > q_efficient)</div>
+<div class="accordion-body">
+<p>The MEC is large enough that the efficient output (q2, where MSB=MSC) is less than the monopolist's output (q1, where MR=MPC).</p>
+<p><strong>Solution:</strong> Corrective tax needed, but LESS than under perfect competition. The monopoly already restricts some output.</p>
+</div>
+</div>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Figure 10-b: Monopolist Underproduces (q_monopoly < q_efficient)</div>
+<div class="accordion-body">
+<p>The MEC is small, so the efficient output (q*) is greater than the monopolist's output (q1).</p>
+<p><strong>Solution:</strong> A subsidy (not a tax!) is needed to encourage the monopolist to increase output to q*. The monopoly restriction is the dominant problem.</p>
+</div>
+</div>
+
+<p><strong>First-best solution:</strong> Break up the monopoly AND impose corrective tax simultaneously.</p>
+<p><strong>Second-best solution:</strong> If breaking up monopoly is infeasible, allow it to offset the externality naturally.</p>
+
+<div class="ext-links">
+<a href="https://www.economicshelp.org/microessays/markets/monopoly/" target="_blank">Economics Help: Monopoly and Externalities</a>
+<a href="https://www.tutor2u.net/economics/topics/monopoly" target="_blank">tutor2u: Monopoly</a>
+</div>
+</section>
+</div>
+
+<script>
+function showMonopolyScenario(type, btn){
+  if(btn){
+    document.querySelectorAll('.chart-controls .toggle-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const q=Array.from({length:50},(_,i)=>i+1);
+  let mpc,msc,ar,mr,title,annotations=[];
+
+  if(type==='perfect'){
+    mpc=q.map(x=>10+0.8*x);msc=q.map(x=>20+0.8*x);
+    ar=q.map(x=>70-0.6*x);mr=q.map(x=>70-1.2*x);
+    title='Fig 10: Perfect Offset - Monopolist Output = Efficient Output';
+    const qMon=Math.round((70-10)/(1.2+0.8)); // MR=MPC
+    const qEff=Math.round((70-20)/(0.6+0.8)); // AR=MSC
+    annotations=[{x:qMon,y:10+0.8*qMon,text:'q_mono = q_eff<br>Perfect offset!',showarrow:true,ax:60,ay:-40}];
+  }else if(type==='over'){
+    mpc=q.map(x=>5+0.6*x);msc=q.map(x=>25+0.6*x);
+    ar=q.map(x=>70-0.6*x);mr=q.map(x=>70-1.2*x);
+    title='Fig 10-a: Monopolist Overproduces (large MEC, needs tax)';
+    const qMon=Math.round((70-5)/(1.2+0.6));
+    const qEff=Math.round((70-25)/(0.6+0.6));
+    annotations=[
+      {x:qMon,y:5+0.6*qMon,text:'q_mono',showarrow:true,ax:-40,ay:30},
+      {x:qEff,y:25+0.6*qEff,text:'q_eff < q_mono',showarrow:true,ax:50,ay:-30}
+    ];
+  }else{
+    mpc=q.map(x=>10+1.0*x);msc=q.map(x=>15+1.0*x);
+    ar=q.map(x=>70-0.6*x);mr=q.map(x=>70-1.2*x);
+    title='Fig 10-b: Monopolist Underproduces (small MEC, needs subsidy)';
+    const qMon=Math.round((70-10)/(1.2+1.0));
+    const qEff=Math.round((70-15)/(0.6+1.0));
+    annotations=[
+      {x:qMon,y:10+1.0*qMon,text:'q_mono',showarrow:true,ax:-40,ay:30},
+      {x:qEff,y:15+1.0*qEff,text:'q_eff > q_mono',showarrow:true,ax:50,ay:-30}
+    ];
+  }
+
+  Plotly.newPlot('chart-monopoly',[
+    {x:q,y:mpc,name:'MPC',line:{color:'#1565c0',width:3}},
+    {x:q,y:msc,name:'MSC',line:{color:'#c62828',width:3,dash:'dash'}},
+    {x:q,y:ar,name:'AR = MSB (Demand)',line:{color:'#2e7d32',width:3}},
+    {x:q,y:mr,name:'MR',line:{color:'#ff9800',width:3,dash:'dot'}}
+  ],{title:title,xaxis:{title:'Quantity',range:[0,50]},yaxis:{title:'Price',range:[0,80]},
+     legend:{x:0.5,y:0.99},margin:{t:50,r:30},annotations:annotations},{responsive:true});
+}
+
+function updateMonopolyMEC(v){
+  document.getElementById('mec-mono-val').textContent='$'+v;
+  const mec=Number(v);
+  const q=Array.from({length:50},(_,i)=>i+1);
+  const mpc=q.map(x=>10+0.8*x);
+  const msc=q.map(x=>10+0.8*x+mec);
+  const ar=q.map(x=>70-0.6*x);
+  const mr=q.map(x=>70-1.2*x);
+  const qMon=Math.round((70-10)/(1.2+0.8));
+  const qEff=Math.round((70-10-mec)/(0.6+0.8));
+
+  let title,annotations;
+  if(Math.abs(qMon-qEff)<=1){
+    title='MEC=$'+mec+': Perfect Offset';
+    annotations=[{x:qMon,y:10+0.8*qMon,text:'q_mono ≈ q_eff',showarrow:true,ax:60,ay:-40}];
+  }else if(qMon>qEff){
+    title='MEC=$'+mec+': Monopolist Overproduces (needs tax)';
+    annotations=[{x:qMon,y:10+0.8*qMon,text:'q_mono='+qMon,showarrow:true,ax:-40,ay:30},
+                 {x:qEff,y:10+0.8*qEff+mec,text:'q_eff='+qEff,showarrow:true,ax:50,ay:-30}];
+  }else{
+    title='MEC=$'+mec+': Monopolist Underproduces (needs subsidy)';
+    annotations=[{x:qMon,y:10+0.8*qMon,text:'q_mono='+qMon,showarrow:true,ax:-40,ay:30},
+                 {x:qEff,y:10+0.8*qEff+mec,text:'q_eff='+qEff,showarrow:true,ax:50,ay:-30}];
+  }
+
+  Plotly.newPlot('chart-monopoly',[
+    {x:q,y:mpc,name:'MPC',line:{color:'#1565c0',width:3}},
+    {x:q,y:msc,name:'MSC (MPC+'+mec+')',line:{color:'#c62828',width:3,dash:'dash'}},
+    {x:q,y:ar,name:'AR = MSB (Demand)',line:{color:'#2e7d32',width:3}},
+    {x:q,y:mr,name:'MR',line:{color:'#ff9800',width:3,dash:'dot'}}
+  ],{title:title,xaxis:{title:'Quantity',range:[0,50]},yaxis:{title:'Price',range:[0,80]},
+     legend:{x:0.5,y:0.99},margin:{t:50,r:30},annotations:annotations},{responsive:true});
+}
+
+function initCharts(){showMonopolyScenario('perfect',document.querySelector('.chart-controls .toggle-btn'));}
+</script>
+
+</body>
+</html>

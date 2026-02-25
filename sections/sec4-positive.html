@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4. Positive Externalities & Efficiency - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>4. Positive Externalities & Efficiency</h1>
+<p class="subtitle">Based on Dr. Said's Figures 7, 8, 8-A + Handwritten Notes Vaccination Table</p>
+
+<section>
+<h2>The Setup (Inoculation Example)</h2>
+<p>Vaccination generates <strong>positive externalities</strong>: those vaccinated benefit themselves (private benefit), but <strong>unvaccinated people also benefit</strong> because the risk of contagious disease decreases (external benefit). No external cost exists.</p>
+<ul>
+<li><strong>Demand (D)</strong> = MPB (private benefit only - what consumers willing to pay)</li>
+<li><strong>Supply (S)</strong> = MPC = MSC (no external cost, so private = social cost)</li>
+<li><strong>MSB = MPB + MEB</strong> - true social benefit (private + external benefit to society)</li>
+</ul>
+
+<h2>Case 1: Constant MEB (Figure 7)</h2>
+<div class="chart-controls">
+<span class="toggle-btn active" onclick="toggleTrace('chart-posext-const',3,this)">Welfare Loss Triangle</span>
+<span class="toggle-btn" onclick="toggleTrace('chart-posext-const',5,this)">MEB Gap</span>
+</div>
+<div id="chart-posext-const" class="plotly-chart"></div>
+<div class="slider-container">
+<label>MEB Value: </label>
+<input type="range" min="2" max="25" value="10" id="meb-slider" oninput="updatePosExtConst(this.value)">
+<span class="value" id="meb-val">$10</span>
+</div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Why Does the Market Underproduce with Positive Externalities?</div>
+<div class="accordion-body">
+<p>At market equilibrium E1: MPB = MPC. But MSB > MPB (because MSB = MPB + MEB). So at E1:</p>
+<p>$MSB > MSC \text{ at E1}$</p>
+<p>This means: the true benefit to society exceeds the cost - more units SHOULD be produced but aren't, because consumers only consider their private benefit. The market <strong>underproduces</strong>.</p>
+</div>
+</div>
+
+<h2>Case 2: Decreasing MEB (Figures 8 & 8-A)</h2>
+<p>In reality, MEB decreases as more people get vaccinated - because the risk to unvaccinated people keeps falling. At some point (q3), MEB = 0 and MPB = MSB.</p>
+<div class="chart-controls">
+<span class="toggle-btn active" onclick="showFigure8('fig8',this)">Figure 8 (Basic)</span>
+<span class="toggle-btn" onclick="showFigure8('fig8a',this)">Figure 8-A (Shifted Supply)</span>
+</div>
+<div id="chart-posext-dec" class="plotly-chart"></div>
+
+<h2>Vaccination Table (Handwritten Notes - Key Example)</h2>
+<p>Suppose Corona virus vaccination is produced & sold in perfect competition. Each unit generates positive externality estimated at $20/unit. No external cost.</p>
+
+<table id="vax-table">
+<tr><th>Q</th><th>MPB</th><th>MPC=MSC</th><th>MEB</th><th>MSB</th><th>TSB=$\sum$MSB</th><th>TSC=$\sum$MSC</th><th>NSB=TSB-TSC</th></tr>
+<tr><td>1</td><td>100</td><td>60</td><td>20</td><td>120</td><td>120</td><td>60</td><td>60</td></tr>
+<tr><td>2</td><td>90</td><td>70</td><td>20</td><td>110</td><td>230</td><td>130</td><td>100</td></tr>
+<tr><td>3</td><td>80</td><td>80</td><td>20</td><td>100</td><td>330</td><td>210</td><td>120</td></tr>
+<tr><td class="highlight">4</td><td class="highlight">70</td><td class="highlight">90</td><td class="highlight">20</td><td class="highlight">90</td><td class="highlight">420</td><td class="highlight">300</td><td class="highlight">120</td></tr>
+<tr><td>5</td><td>60</td><td>100</td><td>20</td><td>80</td><td>500</td><td>400</td><td>100</td></tr>
+<tr><td>6</td><td>50</td><td>110</td><td>20</td><td>70</td><td>570</td><td>510</td><td>60</td></tr>
+</table>
+
+<div id="chart-nsb" class="plotly-chart" style="min-height:300px;"></div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Why is Q=4 the Efficient Point?</div>
+<div class="accordion-body">
+<p><strong>Two ways to find it:</strong></p>
+<p><strong>Method 1 (Marginal):</strong> Find where MSB = MSC. At Q=4: MSB = 90, MSC = 90. Equal!</p>
+<p><strong>Method 2 (Total):</strong> Find where NSB is maximized. NSB peaks at Q=3 and Q=4 (both = 120). But the EFFICIENT point is Q=4 because that's where MSB = MSC (the marginal condition).</p>
+<p>At Q=3: MSB(100) > MSC(80) - society would benefit from one more unit</p>
+<p>At Q=4: MSB(90) = MSC(90) - perfect balance</p>
+<p>At Q=5: MSB(80) < MSC(100) - society loses from this unit</p>
+<p><strong>Market equilibrium:</strong> MPB = MPC at Q=3 (both = 80). The market underproduces by 1 unit.</p>
+</div>
+</div>
+
+<div class="ext-links">
+<a href="https://www.khanacademy.org/economics-finance-domain/microeconomics/consumer-producer-surplus/deadweight-loss-tutorial/v/positive-externalities" target="_blank">Khan Academy: Positive Externalities</a>
+<a href="https://www.tutor2u.net/economics/topics/positive-externalities" target="_blank">tutor2u: Positive Externalities</a>
+</div>
+</section>
+</div>
+
+<script>
+function drawPosExtConst(meb){
+  meb=Number(meb);
+  const q=Array.from({length:50},(_,i)=>i+1);
+  const mpb=q.map(x=>80-0.8*x);
+  const mpc=q.map(x=>15+0.8*x);
+  const msb=q.map(x=>80-0.8*x+meb);
+  const qMarket=Math.round((80-15)/(0.8+0.8));
+  const qEff=Math.round((80+meb-15)/(0.8+0.8));
+  const pMarket=15+0.8*qMarket;
+  const pEff=15+0.8*qEff;
+
+  Plotly.newPlot('chart-posext-const',[
+    {x:q,y:mpb,name:'MPB (D)',line:{color:'#7b1fa2',width:3}},
+    {x:q,y:msb,name:'MSB = MPB + MEB',line:{color:'#2e7d32',width:3,dash:'dash'}},
+    {x:q,y:mpc,name:'MPC = MSC (S)',line:{color:'#1565c0',width:3}},
+    // Welfare loss triangle
+    {x:[qMarket,qMarket,qEff,qMarket],y:[pMarket,80-0.8*qMarket+meb,pEff,pMarket],
+     fill:'toself',fillcolor:'rgba(76,175,80,0.2)',line:{color:'#4caf50',width:2},name:'Welfare Loss',visible:true},
+    // Points
+    {x:[qMarket,qEff],y:[pMarket,pEff],mode:'markers+text',
+     text:['E1 (Market)','E2 (Efficient)'],textposition:['bottom left','top right'],
+     marker:{size:12,color:['#7b1fa2','#2e7d32']},showlegend:false},
+    // MEB gap line at market equilibrium
+    {x:[qMarket,qMarket],y:[80-0.8*qMarket,80-0.8*qMarket+meb],
+     mode:'lines',line:{color:'#ff9800',width:4,dash:'dot'},name:'MEB Gap',visible:false}
+  ],{title:'Positive Externality: Constant MEB (Figure 7 - Inoculation)',
+     xaxis:{title:'Inoculations (Millions)',range:[0,55]},yaxis:{title:'Price ($)',range:[0,100]},
+     legend:{x:0.5,y:0.99},margin:{t:50,r:30},
+     annotations:[
+       {x:qMarket,y:pMarket,text:'E1: Q='+qMarket,showarrow:true,ax:-50,ay:30},
+       {x:qEff,y:pEff,text:'E2: Q='+qEff,showarrow:true,ax:50,ay:-30}
+     ]
+  },{responsive:true});
+}
+function updatePosExtConst(v){document.getElementById('meb-val').textContent='$'+v;drawPosExtConst(v);}
+
+function showFigure8(type, btn){
+  // Clear active state on Figure 8/8-A toggle buttons
+  if(btn){
+    btn.closest('.chart-controls').querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  const q=Array.from({length:60},(_,i)=>i+1);
+  const mpb=q.map(x=>70-0.7*x);
+  const meb=q.map(x=>Math.max(0,30-0.6*x));
+  const msb=q.map((x,i)=>mpb[i]+meb[i]);
+
+  let mpc, title;
+  if(type==='fig8'){
+    mpc=q.map(x=>10+0.7*x);
+    title='Decreasing MEB (Figure 8) - Single Supply';
+  } else {
+    mpc=q.map(x=>5+0.7*x);
+    title='Decreasing MEB (Figure 8-A) - Shifted Supply';
+  }
+
+  const qMarket = q.find((x,i)=>Math.abs(mpb[i]-mpc[i])<2) || 43;
+  const qEff = q.find((x,i)=>Math.abs(msb[i]-mpc[i])<2) || 47;
+  const qMeb0 = q.find((x,i)=>meb[i]<=0) || 50;
+
+  Plotly.newPlot('chart-posext-dec',[
+    {x:q,y:mpb,name:'MPB (D)',line:{color:'#7b1fa2',width:3}},
+    {x:q,y:msb,name:'MSB = MPB + MEB',line:{color:'#2e7d32',width:3,dash:'dash'}},
+    {x:q,y:mpc,name:'MPC = MSC (S)',line:{color:'#1565c0',width:3}},
+    {x:[qMarket],y:[mpb[qMarket-1]],mode:'markers+text',text:['E1 (Market)'],textposition:'bottom left',
+     marker:{size:12,color:'#7b1fa2',symbol:'circle'},showlegend:false},
+    {x:[qEff],y:[mpc[qEff-1]],mode:'markers+text',text:['E2 (Efficient)'],textposition:'top right',
+     marker:{size:12,color:'#2e7d32',symbol:'circle'},showlegend:false},
+    {x:[qMeb0],y:[mpb[qMeb0-1]],mode:'markers+text',text:['q3: MEB=0'],textposition:'top right',
+     marker:{size:10,color:'#ff9800',symbol:'diamond'},showlegend:false}
+  ],{title:title,
+     xaxis:{title:'Quantity',range:[0,65]},yaxis:{title:'Price ($)',range:[0,100]},
+     legend:{x:0.5,y:0.99},margin:{t:50,r:30},
+     annotations:[{x:qMeb0,y:mpb[qMeb0-1],text:'At q3: MEB=0, MPB=MSB',showarrow:true,ax:50,ay:-30}]
+  },{responsive:true});
+}
+
+function drawNSBChart(){
+  const q=[1,2,3,4,5,6];
+  const nsb=[60,100,120,120,100,60];
+  const colors=nsb.map((v,i)=>i===2||i===3?'#2e7d32':'#90a4ae');
+  Plotly.newPlot('chart-nsb',[{x:q.map(x=>'Q='+x),y:nsb,type:'bar',marker:{color:colors},
+    text:nsb.map(v=>'$'+v),textposition:'outside'}],
+    {title:'Net Social Benefit (NSB) by Quantity - Maximum at Q=4 (Efficient)',
+     yaxis:{title:'NSB ($)'},height:300,margin:{t:50,b:40}},{responsive:true});
+}
+
+function initCharts(){
+  drawPosExtConst(10);
+  showFigure8('fig8');
+  drawNSBChart();
+}
+</script>
+
+</body>
+</html>

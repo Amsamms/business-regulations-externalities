@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2. Negative Externalities & Efficiency - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>2. Negative Externalities & Efficiency</h1>
+<p class="subtitle">Based on Dr. Said's Figure 5 - Paper Industry Example</p>
+
+<section>
+<h2>The Setup</h2>
+<p>Suppose paper production generates pollution (waste into rivers/lakes). The paper industry operates under <strong>perfect competition</strong>. There are <strong>no positive externalities</strong> in production or consumption of paper.</p>
+<ul>
+<li><strong>Supply curve (S1)</strong> = MPC (Marginal Private Cost) - what producers actually pay</li>
+<li><strong>Demand curve (D)</strong> = MPB = MSB (since no external benefit, private = social benefit)</li>
+<li><strong>MSC = MPC + MEC</strong> - the TRUE cost to society (private cost + pollution damage)</li>
+</ul>
+
+<h2>Interactive Chart: The Problem</h2>
+<div class="chart-controls">
+<span class="toggle-btn active" onclick="toggleTrace('chart-negext',3,this)">DWL Triangle</span>
+<span class="toggle-btn" onclick="toggleTrace('chart-negext',4,this)">MEC Gap</span>
+</div>
+<div id="chart-negext" class="plotly-chart"></div>
+<div class="slider-container">
+<label>MEC Value: </label>
+<input type="range" min="5" max="30" value="10" id="mec-slider" oninput="updateNegExt(this.value)">
+<span class="value" id="mec-val">$10</span>
+</div>
+
+<h2>Step-by-Step Explanation</h2>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 1: Why is E1 the Market Equilibrium?</div>
+<div class="accordion-body">
+<p>In a free market, producers make decisions based on their <strong>private costs (MPC)</strong> and the <strong>market price</strong>. They don't consider the pollution damage to fishermen, swimmers, or downstream communities.</p>
+<p>The market equilibrium is where <strong>Supply = Demand</strong>, i.e., <strong>MPC = MPB</strong> at point E1 (quantity q1, price P1).</p>
+<p>$\text{At E1: } MPC = MPB \text{ (producers' cost = consumers' benefit)}$</p>
+</div>
+</div>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 2: Why is E1 NOT Efficient?</div>
+<div class="accordion-body">
+<p>E1 is NOT efficient because <strong>it ignores the external cost (MEC)</strong>. At E1:</p>
+<p>$MSC = MPC + MEC > MPC = MPB = MSB$</p>
+<p>This means: the <strong>true cost to society</strong> of each unit between q2 and q1 is <strong>greater</strong> than the benefit. Society is worse off for each of these extra units produced.</p>
+<div class="why-box"><strong>Intuition:</strong> Imagine each ton of paper costs $50 to produce (MPC) but also causes $10 of river damage (MEC). The true cost is $60 (MSC). If consumers only value it at $55 (MSB), then producing it destroys $5 of value - but the market produces it anyway because the producer only sees the $50 cost!</div>
+</div>
+</div>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 3: Why is E2 the Efficient Point?</div>
+<div class="accordion-body">
+<p>The efficient point E2 is where <strong>MSC = MSB</strong> (at quantity q2, price P2).</p>
+<p>At this point, the marginal benefit to ALL of society exactly equals the marginal cost to ALL of society (including pollution damage). No reallocation of resources could make anyone better off without making someone worse off.</p>
+<p>The efficient output q2 is <strong>less than</strong> q1 - the market <strong>overproduces</strong> when negative externalities exist.</p>
+</div>
+</div>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 4: What Does the DWL Triangle Mean?</div>
+<div class="accordion-body">
+<p>The triangle E1-E2-E3 represents the <strong>Deadweight Loss (DWL)</strong> - the total efficiency loss to society from overproduction.</p>
+<p>For each unit between q2 and q1: $MSC > MSB$, meaning each unit costs society more than it benefits.</p>
+<p>$DWL = \frac{1}{2} \times (q1 - q2) \times (MSC_{q1} - MSB_{q1})$</p>
+<p>This DWL can become <strong>efficiency gains</strong> if output decreases from q1 to q2.</p>
+</div>
+</div>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 5: Why Does the Market Overproduce?</div>
+<div class="accordion-body">
+<p>The market overproduces because producers only see <strong>MPC</strong> (their private cost), not <strong>MSC</strong> (the true social cost including pollution). They keep producing as long as MPC &lt; market price, ignoring the damage to third parties.</p>
+<p>The gap between q1 and q2 represents the <strong>overproduction</strong>: units that should NOT be produced because their social cost exceeds their social benefit.</p>
+</div>
+</div>
+
+<div class="ext-links">
+<a href="https://www.khanacademy.org/economics-finance-domain/microeconomics/consumer-producer-surplus/deadweight-loss-tutorial/v/negative-externalities" target="_blank">Khan Academy: Negative Externalities</a>
+<a href="https://www.economicshelp.org/micro-economic-essays/marketfailure/negative-externality/" target="_blank">Economics Help: Negative Externalities</a>
+</div>
+</section>
+</div>
+
+<script>
+function drawNegExt(mec){
+  mec=Number(mec);
+  const q=Array.from({length:50},(_,i)=>i+1);
+  const mpc=q.map(x=>20+0.6*x);
+  const mpb=q.map(x=>80-0.6*x);
+  const msc=q.map(x=>20+0.6*x+mec);
+  const qMarket=Math.round((80-20)/(0.6+0.6));
+  const pMarket=20+0.6*qMarket;
+  const qEff=Math.round((80-20-mec)/(0.6+0.6));
+  const pEff=80-0.6*qEff;
+  const pMPC_at_q1=20+0.6*qMarket;
+  const msc_at_q1=20+0.6*qMarket+mec;
+
+  const traces=[
+    {x:q,y:mpc,name:'MPC (S1)',line:{color:'#1565c0',width:3}},
+    {x:q,y:msc,name:'MSC = MPC + MEC',line:{color:'#c62828',width:3,dash:'dash'}},
+    {x:q,y:mpb,name:'MPB = MSB (D)',line:{color:'#2e7d32',width:3}},
+    {x:[qEff,qMarket,qMarket,qEff],y:[pEff,80-0.6*qMarket,msc_at_q1,pEff],
+     fill:'toself',fillcolor:'rgba(255,152,0,0.25)',line:{color:'#ff9800',width:2},name:'DWL Triangle',visible:true},
+    {x:[qMarket,qMarket],y:[pMPC_at_q1,msc_at_q1],
+     mode:'lines',line:{color:'#9c27b0',width:4,dash:'dot'},name:'MEC Gap',visible:false},
+    {x:[qMarket,qEff],y:[pMarket,pEff],mode:'markers+text',
+     text:['E1 (Market)','E2 (Efficient)'],textposition:['top right','top left'],
+     marker:{size:12,color:['#1565c0','#c62828']},name:'Key Points',showlegend:false}
+  ];
+  const layout={
+    title:'Negative Externality: Market Overproduction (Paper Industry)',
+    xaxis:{title:'Quantity',range:[0,55]},yaxis:{title:'Price, Cost, Benefit ($)',range:[0,100]},
+    legend:{x:0.01,y:0.99,bgcolor:'rgba(255,255,255,0.8)'},margin:{t:50,r:30},
+    annotations:[
+      {x:qMarket,y:pMarket,text:'E1: Q='+qMarket+', P=$'+pMarket.toFixed(0),showarrow:true,arrowhead:2,ax:60,ay:-30},
+      {x:qEff,y:pEff,text:'E2: Q='+qEff+', P=$'+pEff.toFixed(0),showarrow:true,arrowhead:2,ax:-70,ay:-20}
+    ]
+  };
+  Plotly.newPlot('chart-negext',traces,layout,{responsive:true});
+}
+function updateNegExt(v){document.getElementById('mec-val').textContent='$'+v;drawNegExt(v);}
+function initCharts(){drawNegExt(10);}
+</script>
+
+</body>
+</html>

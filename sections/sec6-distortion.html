@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6. Distortion vs Corrective Subsidy - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>6. Distortion Subsidy vs Corrective Subsidy</h1>
+<p class="subtitle">Based on Handwritten Notes pp. 1-2, 10 - Wheat Guarantee Price Example</p>
+
+<section>
+<h2>Key Distinction</h2>
+<div class="comparison-grid">
+<div style="background:#e8f5e9;border:2px solid #66bb6a;">
+<h4 style="color:#2e7d32;">Corrective Subsidy</h4>
+<p><strong>When:</strong> Positive externality exists</p>
+<p><strong>Result:</strong> Moves market TO efficiency</p>
+<p><strong>Net effect:</strong> Efficiency GAIN (+10)</p>
+<p><strong>Example:</strong> Vaccination subsidy</p>
+</div>
+<div style="background:#ffebee;border:2px solid #ef5350;">
+<h4 style="color:#c62828;">Distortion Subsidy</h4>
+<p><strong>When:</strong> No externality exists</p>
+<p><strong>Result:</strong> Moves market AWAY from efficiency</p>
+<p><strong>Net effect:</strong> Efficiency LOSS (-875)</p>
+<p><strong>Example:</strong> Wheat guarantee price</p>
+</div>
+</div>
+
+<h2>Wheat Guarantee Price Example</h2>
+<p>Setup: Free market for wheat. No external cost, no external benefit. MPC = MSC, MPB = MSB.</p>
+<ul>
+<li>Supply: P = 0.5Q, Demand: P = 70 - 0.2Q</li>
+<li>Free market equilibrium: E1 at Q1=100, P=50 (this IS the efficient point since no externalities)</li>
+<li>Government sets guarantee price to support farmers</li>
+<li>Rule: if market price > guarantee, sell freely. If price &le; guarantee, government buys at guarantee price</li>
+</ul>
+
+<h2>Interactive Chart</h2>
+<div id="chart-wheat" class="plotly-chart"></div>
+<div class="slider-container">
+<label>Guarantee Price: </label>
+<input type="range" min="40" max="90" value="75" id="gp-slider" oninput="updateWheat(this.value)">
+<span class="value" id="gp-val">$75</span>
+</div>
+
+<h3>Real-Time Surplus Calculations</h3>
+<div id="surplus-output" style="padding:15px;background:#f5f5f5;border-radius:8px;margin:15px 0;"></div>
+
+<div id="chart-wheat-surplus" class="plotly-chart" style="min-height:300px;"></div>
+
+<div class="why-box">
+<strong>Why is this a LOSS?</strong> Because the market was already efficient (no externalities). The subsidy distorts the efficient allocation by encouraging production beyond Q1=100 where MSC > MSB. The DWL triangle represents pure waste.
+</div>
+
+<p><strong>Why does government do this?</strong> (1) Protect farmer income, (2) Achieve food security, (3) Prevent inflation in bread prices. Despite the efficiency loss, there may be equity or political reasons.</p>
+
+<div class="ext-links">
+<a href="https://www.economicshelp.org/blog/2495/economics/price-floor/" target="_blank">Economics Help: Price Floors</a>
+<a href="https://www.investopedia.com/terms/p/price-controls.asp" target="_blank">Investopedia: Price Controls</a>
+</div>
+</section>
+</div>
+
+<script>
+function updateWheat(gp){
+  gp=Number(gp);
+  document.getElementById('gp-val').textContent='$'+gp;
+
+  // Supply: P = 0.5Q => Q = 2P (from handwritten notes)
+  // Demand: P = 70 - 0.2Q => Q = (70-P)/0.2 = 350 - 5P
+  // Equilibrium: 0.5Q = 70-0.2Q => 0.7Q=70 => Q=100, P=50
+  const qEq = 100;
+  const pEq = 50;
+  const dIntercept = 70; // demand P-intercept
+  const qGP = gp / 0.5; // Q on supply at guarantee price: P=0.5Q => Q=2P
+  const pDemandAtQGP = dIntercept - 0.2 * qGP; // consumer price when all qGP consumed
+
+  const q = Array.from({length:200},(_,i)=>i+1);
+  const s = q.map(x=>0.5*x);
+  const d = q.map(x=>Math.max(0, dIntercept - 0.2*x));
+
+  // Producer surplus: triangle under price line, above supply
+  // Old PS = 1/2 * pEq * qEq = 1/2 * 50 * 100 = 2500
+  // New PS = 1/2 * gp * qGP
+  const prodSurplusOld = 0.5 * pEq * qEq;
+  const prodSurplusNew = 0.5 * gp * qGP;
+  const dPS = prodSurplusNew - prodSurplusOld;
+
+  // Consumer surplus: triangle under demand, above consumer price
+  // Consumers get all qGP units at demand clearing price = pDemandAtQGP
+  // Old CS = 1/2 * (dIntercept - pEq) * qEq
+  // New CS = 1/2 * (dIntercept - pDemandAtQGP) * qGP
+  const consSurplusOld = 0.5 * (dIntercept - pEq) * qEq;
+  const consSurplusNew = 0.5 * (dIntercept - pDemandAtQGP) * qGP;
+  const dCS = consSurplusNew - consSurplusOld;
+
+  // Government cost: buys at gp, consumers pay pDemandAtQGP
+  // Cost per unit = gp - pDemandAtQGP, total = (gp - pDemandAtQGP) * qGP
+  const govCost = (gp - pDemandAtQGP) * qGP;
+
+  // DWL = 1/2 * (gp - pDemandAtQGP) * (qGP - qEq)
+  const DWL = 0.5 * (gp - pDemandAtQGP) * (qGP - qEq);
+  const netSum = dPS + dCS - govCost;
+
+  document.getElementById('surplus-output').innerHTML =
+    '<table style="width:100%">'+
+    '<tr><th>Party</th><th>Change</th><th>Explanation</th></tr>'+
+    '<tr><td>Producer</td><td style="color:#2e7d32;font-weight:700">+'+dPS.toFixed(0)+'</td><td>More output ('+qGP.toFixed(0)+' vs '+qEq+') at higher price ($'+gp+' vs $'+pEq+')</td></tr>'+
+    '<tr><td>Consumer</td><td style="color:#2e7d32;font-weight:700">+'+dCS.toFixed(0)+'</td><td>More consumption at lower effective price ($'+pDemandAtQGP.toFixed(0)+' vs $'+pEq+')</td></tr>'+
+    '<tr><td>Government</td><td style="color:#c62828;font-weight:700">-'+govCost.toFixed(0)+'</td><td>($'+gp+' - $'+pDemandAtQGP.toFixed(0)+') x '+qGP.toFixed(0)+' = '+(gp-pDemandAtQGP).toFixed(0)+' x '+qGP.toFixed(0)+'</td></tr>'+
+    '<tr style="background:#e8eaf6"><td><strong>Net (DWL)</strong></td><td style="color:#c62828;font-weight:700">'+netSum.toFixed(0)+'</td><td>DWL = 1/2 x '+(gp-pDemandAtQGP).toFixed(0)+' x '+(qGP-qEq).toFixed(0)+' = '+DWL.toFixed(0)+'</td></tr>'+
+    '</table>';
+
+  Plotly.newPlot('chart-wheat',[
+    {x:q,y:s,name:'Supply (S = MPC = MSC)',line:{color:'#1565c0',width:3}},
+    {x:q,y:d,name:'Demand (D = MPB = MSB)',line:{color:'#2e7d32',width:3}},
+    {x:[0,200],y:[gp,gp],name:'Guarantee Price = $'+gp,line:{color:'#c62828',width:3,dash:'dash'}},
+    // D2 horizontal at guarantee price (government buys at GP)
+    {x:[0,qGP],y:[gp,gp],name:'D2 (Gov buys at GP)',line:{color:'#ff9800',width:2,dash:'dot'}},
+    // DWL shaded area (triangle between S, D, from qEq to qGP)
+    {x:[qEq,qGP,qGP,qEq],y:[pEq,pDemandAtQGP,gp,pEq],
+     fill:'toself',fillcolor:'rgba(244,67,54,0.15)',line:{color:'#f44336',width:1},name:'Net Losses Area'},
+    {x:[qEq,qGP],y:[pEq,gp],mode:'markers+text',
+     text:['E1 (Efficient: Q='+qEq+')','E2 (Distorted: Q='+qGP.toFixed(0)+')'],textposition:['bottom right','top right'],
+     marker:{size:12,color:['#2e7d32','#c62828']},showlegend:false}
+  ],{title:'Wheat Guarantee Price: Distortion Subsidy (No Externality)',
+     xaxis:{title:'Quantity',range:[0,200]},yaxis:{title:'Price ($)',range:[0,110]},
+     legend:{x:0.35,y:0.95},margin:{t:50,r:30}},{responsive:true});
+
+  // Surplus bar chart
+  Plotly.newPlot('chart-wheat-surplus',[{
+    x:['Producer','Consumer','Government','Net (DWL)'],
+    y:[dPS, dCS, -govCost, netSum],type:'bar',
+    marker:{color:['#4caf50','#4caf50','#f44336','#1a237e']},
+    text:['+'+dPS.toFixed(0),'+'+dCS.toFixed(0),'-'+govCost.toFixed(0),netSum.toFixed(0)],
+    textposition:'outside'
+  }],{title:'Surplus Changes from Guarantee Price = $'+gp,
+      yaxis:{title:'Change ($)',zeroline:true},height:320,margin:{t:50,b:60}},{responsive:true});
+}
+
+function initCharts(){updateWheat(75);}
+</script>
+
+</body>
+</html>

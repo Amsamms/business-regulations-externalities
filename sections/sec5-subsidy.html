@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5. Corrective Subsidy - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>5. Corrective Subsidy</h1>
+<p class="subtitle">Based on Dr. Said's Figure 9 + Handwritten Notes pp. 5-7</p>
+
+<section>
+<h2>How It Works</h2>
+<p>Government subsidizes each unit by MEB to encourage more production/consumption to the efficient level.</p>
+<p><strong>Corrective Subsidy = MEB per unit</strong></p>
+
+<div class="why-box">
+<strong>Why does the subsidy work?</strong> Consumers only see MPB (their private benefit). With a subsidy of MEB per unit, the effective demand shifts up from MPB to MPB + MEB = MSB. Now the market naturally reaches the point where MSB = MSC - the efficient point!
+</div>
+
+<h2>Interactive Chart (Figure 9)</h2>
+<div class="chart-controls">
+<span class="toggle-btn active" onclick="toggleTrace('chart-subsidy',3,this)">Efficiency Gain Triangle</span>
+<span class="toggle-btn active" onclick="toggleTrace('chart-subsidy',4,this)">Gov't Cost Rectangle</span>
+</div>
+<div id="chart-subsidy" class="plotly-chart"></div>
+<div class="slider-container">
+<label>Subsidy per unit: </label>
+<input type="range" min="0" max="25" value="10" id="subsidy-slider" oninput="updateSubsidy(this.value)">
+<span class="value" id="subsidy-val">$10</span>
+<span id="subsidy-check" style="margin-left:10px;font-weight:700;"></span>
+</div>
+
+<h2>Surplus Decomposition (Vaccination Example from Notes)</h2>
+<p>Using the vaccination table (Q* market = 3, Q efficient = 4, Subsidy = MEB = $20):</p>
+
+<div class="surplus-bar">
+<div class="surplus-item"><span class="surplus-label">Producer:</span><span class="surplus-val surplus-pos">+35</span><span> Produce more (4 vs 3) & receive higher price (90 vs 80)</span></div>
+<div class="surplus-item"><span class="surplus-label">Consumer:</span><span class="surplus-val surplus-pos">+35</span><span> Consume more (4 vs 3) & pay less (90-20=70 vs 80)</span></div>
+<div class="surplus-item"><span class="surplus-label">3rd Party:</span><span class="surplus-val surplus-pos">+20</span><span> External benefit from extra vaccination</span></div>
+<div class="surplus-item"><span class="surplus-label">Government:</span><span class="surplus-val surplus-neg">-80</span><span> Subsidy cost = 4 units x $20 = $80</span></div>
+<div class="surplus-item"><span class="surplus-label">Net Society:</span><span class="surplus-val surplus-net">+10</span><span> Efficiency GAIN = +35+35+20-80 = +10</span></div>
+</div>
+
+<div id="chart-surplus-bar" class="plotly-chart" style="min-height:300px;"></div>
+
+<h3>Geometric Companion: Areas on the Graph</h3>
+<div id="chart-surplus-geo" class="plotly-chart"></div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step-by-Step Surplus Calculation</div>
+<div class="accordion-body">
+<h4>Producer Surplus Change: +35</h4>
+<p>Producer now produces Q=4 at market price $90 (up from Q=3 at $80).</p>
+<p>Gain = rectangle(3 x 10) + triangle(1/2 x 10 x 1) = 30 + 5 = 35</p>
+
+<h4>Consumer Surplus Change: +35</h4>
+<p>Consumer now consumes Q=4 and pays only $70 (market price $90 minus subsidy $20), down from $80.</p>
+<p>Gain = rectangle(3 x 10) + triangle(1/2 x 10 x 1) = 30 + 5 = 35</p>
+
+<h4>3rd Party Gain: +20</h4>
+<p>Additional external benefit from unit 4: two triangles = 1/2 x 20 x 1 + 1/2 x 20 x 1 = 10 + 10 = 20</p>
+
+<h4>Government Cost: -80</h4>
+<p>Subsidy per unit ($20) x efficient quantity (4) = $80</p>
+
+<h4>Graphical Check: Triangle = +10</h4>
+<p>$Efficiency\ Gain = \frac{1}{2} \times 20 \times 1 = 10$</p>
+<p>The triangle E1-E*-L = the net efficiency gain from moving to the efficient point.</p>
+</div>
+</div>
+
+<div class="ext-links">
+<a href="https://www.economicshelp.org/micro-economic-essays/marketfailure/subsidy-positive-ext/" target="_blank">Economics Help: Subsidies for Positive Externalities</a>
+<a href="https://www.tutor2u.net/economics/reference/ib-economics-government-subsidies" target="_blank">tutor2u: Government Subsidies</a>
+</div>
+</section>
+</div>
+
+<script>
+function drawSubsidyChart(sub){
+  sub=Number(sub); const meb=10;
+  const q=Array.from({length:50},(_,i)=>i+1);
+  const mpb=q.map(x=>80-0.8*x);
+  const mpbSub=q.map(x=>80-0.8*x+sub);
+  const msb=q.map(x=>80-0.8*x+meb);
+  const mpc=q.map(x=>15+0.8*x);
+  const qMarket=Math.round((80-15)/(0.8+0.8));
+  const qSub=Math.round((80+sub-15)/(0.8+0.8));
+  const pEff=15+0.8*qSub;
+  const pMarket=15+0.8*qMarket;
+  const isOptimal=Math.abs(sub-meb)<1;
+
+  document.getElementById('subsidy-check').innerHTML=isOptimal?
+    '<span style="color:#2e7d32">Subsidy = MEB = $'+meb+'</span>':
+    '<span style="color:#c62828">Subsidy &#8800; MEB ($'+meb+')</span>';
+
+  Plotly.newPlot('chart-subsidy',[
+    {x:q,y:mpb,name:'MPB (D1)',line:{color:'#7b1fa2',width:3}},
+    {x:q,y:mpbSub,name:'MPB+Subsidy (D2)',line:{color:'#2e7d32',width:3,dash:'dash'}},
+    {x:q,y:mpc,name:'MPC = MSC (S)',line:{color:'#1565c0',width:3}},
+    // Efficiency gain triangle
+    {x:[qMarket,qMarket,qSub,qMarket],y:[pMarket,80-0.8*qMarket+sub,pEff,pMarket],
+     fill:'toself',fillcolor:'rgba(76,175,80,0.2)',line:{color:'#4caf50',width:2},name:'Efficiency Gain'},
+    // Government cost rectangle
+    {x:[0,qSub,qSub,0,0],y:[80-0.8*qSub,80-0.8*qSub,80-0.8*qSub+sub,80-0.8*qSub+sub,80-0.8*qSub],
+     fill:'toself',fillcolor:'rgba(244,67,54,0.1)',line:{color:'#f44336',width:1,dash:'dot'},name:"Gov't Cost"},
+    {x:[qMarket,qSub],y:[pMarket,pEff],mode:'markers+text',
+     text:['E1 (Market)','E2 (Efficient)'],textposition:['bottom left','top right'],
+     marker:{size:12,color:['#7b1fa2','#2e7d32']},showlegend:false}
+  ],{title:'Corrective Subsidy: Internalizing Positive Externality (Figure 9)',
+     xaxis:{title:'Quantity',range:[0,55]},yaxis:{title:'Price ($)',range:[0,100]},
+     legend:{x:0.5,y:0.99},margin:{t:50,r:30}},{responsive:true});
+}
+function updateSubsidy(v){document.getElementById('subsidy-val').textContent='$'+v;drawSubsidyChart(v);}
+
+function drawSurplusBar(){
+  Plotly.newPlot('chart-surplus-bar',[{
+    x:['Producer','Consumer','3rd Party','Government','Net Society'],
+    y:[35,35,20,-80,10],type:'bar',
+    marker:{color:['#4caf50','#4caf50','#4caf50','#f44336','#1a237e']},
+    text:['+35','+35','+20','-80','+10'],textposition:'outside'
+  }],{title:'Surplus Changes from Corrective Subsidy (Vaccination)',
+      yaxis:{title:'Change ($)',zeroline:true},height:320,margin:{t:50,b:40}},{responsive:true});
+}
+
+function drawSurplusGeo(){
+  // Geometric representation showing areas on supply/demand diagram
+  const q=[1,2,3,4,5];
+  const mpb=[100,90,80,70,60];
+  const mpc=[60,70,80,90,100];
+
+  Plotly.newPlot('chart-surplus-geo',[
+    {x:q,y:mpb,name:'MPB',line:{color:'#7b1fa2',width:3},mode:'lines+markers'},
+    {x:q,y:mpc,name:'MPC=MSC',line:{color:'#1565c0',width:3},mode:'lines+markers'},
+    {x:q,y:mpb.map(v=>v+20),name:'MSB=MPB+20',line:{color:'#2e7d32',width:3,dash:'dash'},mode:'lines+markers'},
+    // Producer gain: area between old price(80) and new price(90), up to Q=4
+    {x:[1,4,4,1,1],y:[80,80,90,90,80],fill:'toself',fillcolor:'rgba(76,175,80,0.2)',
+     line:{color:'#4caf50',width:1},name:'Producer Gain (+35)'},
+    // Consumer gain: area between old price(80) and new consumer price(70)
+    {x:[1,4,4,1,1],y:[70,70,80,80,70],fill:'toself',fillcolor:'rgba(33,150,243,0.2)',
+     line:{color:'#2196f3',width:1},name:'Consumer Gain (+35)'},
+    // 3rd party gain
+    {x:[3,4,4,3],y:[100,90,110,100],fill:'toself',fillcolor:'rgba(255,152,0,0.3)',
+     line:{color:'#ff9800',width:1},name:'3rd Party Gain (+20)'},
+    // Points
+    {x:[3,4],y:[80,90],mode:'markers+text',text:['E1 (Q=3, P=80)','E* (Q=4, P=90)'],
+     textposition:['bottom left','top right'],marker:{size:12,color:['#7b1fa2','#2e7d32']},showlegend:false}
+  ],{title:'Geometric Areas: Surplus Decomposition',
+     xaxis:{title:'Quantity',dtick:1},yaxis:{title:'Price ($)',range:[40,130]},
+     legend:{x:0.01,y:0.99},margin:{t:50,r:30}},{responsive:true});
+}
+
+function initCharts(){drawSubsidyChart(10);drawSurplusBar();drawSurplusGeo();}
+</script>
+
+</body>
+</html>

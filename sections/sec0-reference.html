@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Reference Card - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>Quick Reference Card</h1>
+<p class="subtitle">Click the formula card to expand/collapse. Use this as a cheat sheet while studying.</p>
+
+<section>
+<div class="formula-card" onclick="toggleFormulaCard(this)">
+<h3>Key Formulas & Relationships (click to toggle)</h3>
+<div class="formula-grid">
+<div class="formula-item"><strong>Neg. Ext:</strong> $MSC = MPC + MEC$</div>
+<div class="formula-item"><strong>Pos. Ext:</strong> $MSB = MPB + MEB$</div>
+<div class="formula-item"><strong>Efficiency:</strong> $MSC = MSB$</div>
+<div class="formula-item"><strong>No Ext Cost:</strong> $MSC = MPC$</div>
+<div class="formula-item"><strong>No Ext Benefit:</strong> $MSB = MPB$</div>
+<div class="formula-item"><strong>Market Eq:</strong> $MPB = MPC$ (D = S)</div>
+<div class="formula-item"><strong>Corrective Tax:</strong> $Tax = MEC$</div>
+<div class="formula-item"><strong>Corrective Subsidy:</strong> $Subsidy = MEB$</div>
+<div class="formula-item"><strong>Net Social Benefit:</strong> $NSB = TSB - TSC$</div>
+<div class="formula-item"><strong>DWL Triangle:</strong> $\frac{1}{2} \times base \times height$</div>
+<div class="formula-item"><strong>TSB:</strong> $\sum MSB$ (cumulative)</div>
+<div class="formula-item"><strong>TSC:</strong> $\sum MSC$ (cumulative)</div>
+</div>
+</div>
+
+<div class="why-box">
+<strong>Why MSC = MSB for efficiency?</strong> Because at this point, the total benefit to ALL of society (including 3rd parties) from one more unit exactly equals the total cost to ALL of society. Producing more would cost society more than it benefits; producing less would miss beneficial trades.
+</div>
+
+<h3>Decision Framework</h3>
+<table>
+<tr><th>Situation</th><th>Market Result</th><th>Problem</th><th>Policy</th><th>Effect on Q</th></tr>
+<tr><td>Negative Externality</td><td>MPB = MPC (ignores MEC)</td><td>Overproduction</td><td>Corrective Tax = MEC</td><td>Q decreases to efficient</td></tr>
+<tr><td>Positive Externality</td><td>MPB = MPC (ignores MEB)</td><td>Underproduction</td><td>Corrective Subsidy = MEB</td><td>Q increases to efficient</td></tr>
+<tr><td>No Externality</td><td>MPB = MPC = MSB = MSC</td><td>None - efficient</td><td>None needed</td><td>Already optimal</td></tr>
+<tr><td>Distortion Subsidy</td><td>Already efficient</td><td>Creates inefficiency</td><td>Remove subsidy</td><td>Q artificially increased</td></tr>
+</table>
+
+<h3>Key Terminology</h3>
+<table>
+<tr><th>Abbreviation</th><th>Full Name</th><th>Meaning</th></tr>
+<tr><td>MPC</td><td>Marginal Private Cost</td><td>Cost borne by the producer for one more unit</td></tr>
+<tr><td>MEC</td><td>Marginal External Cost</td><td>Cost imposed on 3rd parties per unit (e.g., pollution)</td></tr>
+<tr><td>MSC</td><td>Marginal Social Cost</td><td>Total cost to society = MPC + MEC</td></tr>
+<tr><td>MPB</td><td>Marginal Private Benefit</td><td>Benefit received by the consumer for one more unit</td></tr>
+<tr><td>MEB</td><td>Marginal External Benefit</td><td>Benefit to 3rd parties per unit (e.g., herd immunity)</td></tr>
+<tr><td>MSB</td><td>Marginal Social Benefit</td><td>Total benefit to society = MPB + MEB</td></tr>
+<tr><td>DWL</td><td>Deadweight Loss</td><td>Efficiency loss from producing wrong quantity</td></tr>
+<tr><td>NSB</td><td>Net Social Benefit</td><td>TSB - TSC, maximized at efficient point</td></tr>
+</table>
+
+<div class="ext-links">
+<a href="https://www.khanacademy.org/economics-finance-domain/microeconomics" target="_blank">Khan Academy: Microeconomics</a>
+<a href="https://www.investopedia.com/terms/e/externality.asp" target="_blank">Investopedia: Externalities</a>
+</div>
+</section>
+</div>
+
+</body>
+</html>

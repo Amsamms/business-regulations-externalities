@@ -1,0 +1,14 @@
+# Source materials (PDFs, exams) - not needed for the website
+Externalities/
+Exams/
+
+# Screenshots from testing
+*.png
+
+# Playwright snapshots
+*.md
+!CLAUDE.md
+!PROGRESS.md
+
+# Python cache
+__pycache__/

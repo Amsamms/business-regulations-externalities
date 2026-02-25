@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7. Negative Ext Numerical Example - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>7. Negative Externality Numerical Example</h1>
+<p class="subtitle">Based on Dr. Galal's slides + Exam data (MEC = $20 constant)</p>
+
+<section>
+<h2>Problem Setup</h2>
+<p>A product sold in competitive market. No external benefit. External cost (MEC) = $20/unit constant.</p>
+<p><strong>Try filling in the table yourself first, then check!</strong></p>
+
+<h2>Fill-the-Table Exercise</h2>
+<table id="sec7-table">
+<tr><th>Units</th><th>MPB</th><th>MPC</th><th>MEC</th><th>MSB=MPB</th><th>MSC=MPC+MEC</th></tr>
+<tr><td>10</td><td>80</td><td>20</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="80" size="4"></td><td><input class="fill-input" data-answer="40" size="4"></td></tr>
+<tr><td>20</td><td>70</td><td>30</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="70" size="4"></td><td><input class="fill-input" data-answer="50" size="4"></td></tr>
+<tr><td>30</td><td>60</td><td>40</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="60" size="4"></td><td><input class="fill-input" data-answer="60" size="4"></td></tr>
+<tr><td>40</td><td>50</td><td>50</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="50" size="4"></td><td><input class="fill-input" data-answer="70" size="4"></td></tr>
+<tr><td>50</td><td>40</td><td>60</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="40" size="4"></td><td><input class="fill-input" data-answer="80" size="4"></td></tr>
+<tr><td>60</td><td>30</td><td>70</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="30" size="4"></td><td><input class="fill-input" data-answer="90" size="4"></td></tr>
+</table>
+<button class="check-btn" onclick="checkInputs('sec7-table')">Check Answers</button>
+<button class="reveal-btn" onclick="revealInputs('sec7-table','sec7-solution')">Reveal Solution</button>
+
+<div class="solution-box" id="sec7-solution">
+<h4>Completed Table:</h4>
+<table>
+<tr><th>Units</th><th>MPB</th><th>MPC</th><th>MEC</th><th>MSB=MPB</th><th>MSC=MPC+MEC</th></tr>
+<tr><td>10</td><td>80</td><td>20</td><td>20</td><td>80</td><td>40</td></tr>
+<tr><td>20</td><td>70</td><td>30</td><td>20</td><td>70</td><td>50</td></tr>
+<tr><td class="highlight">30</td><td class="highlight">60</td><td class="highlight">40</td><td class="highlight">20</td><td class="highlight">60</td><td class="highlight">60</td></tr>
+<tr><td>40</td><td>50</td><td>50</td><td>20</td><td>50</td><td>70</td></tr>
+<tr><td>50</td><td>40</td><td>60</td><td>20</td><td>40</td><td>80</td></tr>
+<tr><td>60</td><td>30</td><td>70</td><td>20</td><td>30</td><td>90</td></tr>
+</table>
+</div>
+
+<div id="chart-neg-numerical" class="plotly-chart"></div>
+
+<h2>Solution</h2>
+<ul>
+<li><strong>Market equilibrium:</strong> MPB = MPC at <strong>Q = 40, P = $50</strong></li>
+<li><strong>Efficient point:</strong> MSB = MSC at <strong>Q = 30, P = $60</strong></li>
+<li><strong>Corrective Tax = MEC = $20</strong></li>
+<li><strong>Consumer price after tax:</strong> $60 (price on demand at Q=30)</li>
+<li><strong>Producer price after tax:</strong> $60 - $20 = $40 (or MPC at Q=30 = 40)</li>
+<li><strong>DWL/Efficiency gains:</strong> $\frac{1}{2} \times (40-30) \times (70-50) = \frac{1}{2} \times 10 \times 20 = 100$</li>
+</ul>
+
+<div class="error-flag">
+<h4>ERROR FLAG: Dr. Galal's Slides</h4>
+<p>Dr. Galal's answer states: "The probable efficient level of output @ E1@ Q = 40"</p>
+<p>This is <strong>INCORRECT</strong>. Q=40 is the <strong>market equilibrium</strong> (where MPB=MPC=50), NOT the efficient point.</p>
+<div class="correct-answer">
+<strong>Correct Answer:</strong> The efficient level is Q=30 where MSB=MSC=60. Market equilibrium is Q=40 where MPB=MPC=50.
+<br>At Q=40: MSC(70) &#8800; MSB(50). The efficiency condition is NOT satisfied.
+<br>At Q=30: MSC(60) = MSB(60). The efficiency condition IS satisfied.
+</div>
+</div>
+
+<div class="ext-links">
+<a href="https://www.investopedia.com/terms/d/deadweightloss.asp" target="_blank">Investopedia: Deadweight Loss</a>
+<a href="https://www.khanacademy.org/economics-finance-domain/microeconomics/consumer-producer-surplus/deadweight-loss-tutorial/a/the-effects-of-government-intervention" target="_blank">Khan Academy: Government Intervention Effects</a>
+</div>
+</section>
+</div>
+
+<script>
+function drawNegNumerical(){
+  const units=[10,20,30,40,50,60];
+  const mpb=[80,70,60,50,40,30];
+  const mpc=[20,30,40,50,60,70];
+  const msc=[40,50,60,70,80,90];
+
+  Plotly.newPlot('chart-neg-numerical',[
+    {x:units,y:mpb,name:'MPB = MSB',line:{color:'#2e7d32',width:3},mode:'lines+markers'},
+    {x:units,y:mpc,name:'MPC (S1)',line:{color:'#1565c0',width:3},mode:'lines+markers'},
+    {x:units,y:msc,name:'MSC = MPC+20',line:{color:'#c62828',width:3,dash:'dash'},mode:'lines+markers'},
+    {x:[30,40,40,30],y:[60,50,70,60],fill:'toself',fillcolor:'rgba(255,152,0,0.3)',
+     line:{color:'#ff9800',width:2},name:'DWL = 100'},
+    {x:[40,30],y:[50,60],mode:'markers+text',text:['E1 (Market: Q=40)','E2 (Efficient: Q=30)'],
+     textposition:['bottom right','top left'],marker:{size:14,color:['#1565c0','#c62828'],symbol:'star'},showlegend:false}
+  ],{title:'Negative Externality Numerical: MEC = $20 (Dr. Galal Data)',
+     xaxis:{title:'Units',dtick:10},yaxis:{title:'$ per unit'},
+     legend:{x:0.01,y:0.99},margin:{t:50,r:30}},{responsive:true});
+}
+function initCharts(){drawNegNumerical();}
+</script>
+
+</body>
+</html>

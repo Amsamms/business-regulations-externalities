@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8. Positive Ext Numerical Example - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>8. Positive Externality Numerical Example</h1>
+<p class="subtitle">Based on Dr. Galal's slides (MEB = $20 constant)</p>
+
+<section>
+<h2>Problem Setup</h2>
+<p>A product sold in competitive market. No external cost. External benefit (MEB) = $20/unit constant.</p>
+<p><strong>Try filling in the table yourself first, then check!</strong></p>
+
+<h2>Fill-the-Table Exercise</h2>
+<table id="sec8-table">
+<tr><th>Units</th><th>MPB</th><th>MPC</th><th>MEB</th><th>MSB=MPB+MEB</th><th>MSC=MPC</th></tr>
+<tr><td>10</td><td>80</td><td>20</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="100" size="4"></td><td><input class="fill-input" data-answer="20" size="4"></td></tr>
+<tr><td>20</td><td>70</td><td>30</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="90" size="4"></td><td><input class="fill-input" data-answer="30" size="4"></td></tr>
+<tr><td>30</td><td>60</td><td>40</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="80" size="4"></td><td><input class="fill-input" data-answer="40" size="4"></td></tr>
+<tr><td>40</td><td>50</td><td>50</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="70" size="4"></td><td><input class="fill-input" data-answer="50" size="4"></td></tr>
+<tr><td>50</td><td>40</td><td>60</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="60" size="4"></td><td><input class="fill-input" data-answer="60" size="4"></td></tr>
+<tr><td>60</td><td>30</td><td>70</td><td><input class="fill-input" data-answer="20" size="4"></td><td><input class="fill-input" data-answer="50" size="4"></td><td><input class="fill-input" data-answer="70" size="4"></td></tr>
+</table>
+<button class="check-btn" onclick="checkInputs('sec8-table')">Check Answers</button>
+<button class="reveal-btn" onclick="revealInputs('sec8-table','sec8-solution')">Reveal Solution</button>
+
+<div class="solution-box" id="sec8-solution">
+<h4>Completed Table:</h4>
+<table>
+<tr><th>Units</th><th>MPB</th><th>MPC</th><th>MEB</th><th>MSB=MPB+MEB</th><th>MSC=MPC</th></tr>
+<tr><td>10</td><td>80</td><td>20</td><td>20</td><td>100</td><td>20</td></tr>
+<tr><td>20</td><td>70</td><td>30</td><td>20</td><td>90</td><td>30</td></tr>
+<tr><td>30</td><td>60</td><td>40</td><td>20</td><td>80</td><td>40</td></tr>
+<tr><td>40</td><td>50</td><td>50</td><td>20</td><td>70</td><td>50</td></tr>
+<tr><td class="highlight">50</td><td class="highlight">40</td><td class="highlight">60</td><td class="highlight">20</td><td class="highlight">60</td><td class="highlight">60</td></tr>
+<tr><td>60</td><td>30</td><td>70</td><td>20</td><td>50</td><td>70</td></tr>
+</table>
+</div>
+
+<div id="chart-pos-numerical" class="plotly-chart"></div>
+
+<h2>Solution</h2>
+<ul>
+<li><strong>Market equilibrium:</strong> MPB = MPC at <strong>Q = 40, P = $50</strong></li>
+<li><strong>Efficient point:</strong> MSB = MSC at <strong>Q = 50, P = $60</strong></li>
+<li><strong>Corrective Subsidy = MEB = $20</strong></li>
+<li><strong>Producer price after subsidy:</strong> $60 (price on MSC/MPC at Q=50)</li>
+<li><strong>Consumer price after subsidy:</strong> $60 - $20 = $40 (= MPB at Q=50)</li>
+<li><strong>Efficiency gains:</strong> $\frac{1}{2} \times (50-40) \times (70-50) = \frac{1}{2} \times 10 \times 20 = 100$</li>
+</ul>
+
+<div class="error-flag">
+<h4>ERROR FLAG: Dr. Galal's Slides - Positive Externality</h4>
+<p>Dr. Galal's answers state: "Producer price before subsidy @ E1@ P = 60 @ Q = 30" (claiming equilibrium at Q=30)</p>
+<p>This is <strong>INCONSISTENT with the table data</strong>.</p>
+<div class="correct-answer">
+<strong>Correct Answer:</strong> Market equilibrium is where MPB = MPC.
+<br>At Q=30: MPB=60, MPC=40. NOT equal (60 &#8800; 40).
+<br>At Q=40: MPB=50, MPC=50. EQUAL! This is the market equilibrium.
+<br>Efficient: Q=50 where MSB=MSC=60. Galal says Q=40, which is also incorrect.
+</div>
+</div>
+
+<div class="ext-links">
+<a href="https://www.economicshelp.org/micro-economic-essays/marketfailure/positive-externality/" target="_blank">Economics Help: Positive Externalities</a>
+<a href="https://www.investopedia.com/terms/s/subsidy.asp" target="_blank">Investopedia: Subsidies</a>
+</div>
+</section>
+</div>
+
+<script>
+function drawPosNumerical(){
+  const units=[10,20,30,40,50,60];
+  const mpb=[80,70,60,50,40,30];
+  const mpc=[20,30,40,50,60,70];
+  const msb=[100,90,80,70,60,50];
+
+  Plotly.newPlot('chart-pos-numerical',[
+    {x:units,y:mpb,name:'MPB (D1)',line:{color:'#7b1fa2',width:3},mode:'lines+markers'},
+    {x:units,y:msb,name:'MSB = MPB+20',line:{color:'#2e7d32',width:3,dash:'dash'},mode:'lines+markers'},
+    {x:units,y:mpc,name:'MPC = MSC (S)',line:{color:'#1565c0',width:3},mode:'lines+markers'},
+    {x:[40,40,50,40],y:[50,70,60,50],fill:'toself',fillcolor:'rgba(76,175,80,0.25)',
+     line:{color:'#4caf50',width:2},name:'Efficiency Gains = 100'},
+    {x:[40,50],y:[50,60],mode:'markers+text',text:['E1 (Market: Q=40)','E2 (Efficient: Q=50)'],
+     textposition:['bottom left','top right'],marker:{size:14,color:['#7b1fa2','#2e7d32'],symbol:'star'},showlegend:false}
+  ],{title:'Positive Externality Numerical: MEB = $20 (Dr. Galal Data)',
+     xaxis:{title:'Units',dtick:10},yaxis:{title:'$ per unit'},
+     legend:{x:0.5,y:0.99},margin:{t:50,r:30}},{responsive:true});
+}
+function initCharts(){drawPosNumerical();}
+</script>
+
+</body>
+</html>

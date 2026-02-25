@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3. Corrective Tax (Pigouvian) - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>3. Corrective Tax (Pigouvian Tax)</h1>
+<p class="subtitle">Based on Dr. Said's Figure 6 + Carbon Tax Application (slides pp. 58-63)</p>
+
+<section>
+<h2>How It Works</h2>
+<p>Government imposes a tax on producers equal to the MEC per unit. This <strong>internalizes</strong> the external cost into producers' decisions.</p>
+<p><strong>Corrective Tax = MEC per unit</strong> (also called Pigouvian Tax, named after economist Arthur Pigou)</p>
+
+<div class="why-box">
+<strong>Why does the tax work?</strong> Before the tax, producers only see MPC. After the tax, their effective cost becomes MPC + Tax = MPC + MEC = MSC. Now they're making decisions based on the TRUE social cost. The supply curve shifts up from S1 (MPC) to S2 (MPC + Tax = MSC), and the new equilibrium naturally occurs at the efficient point!
+</div>
+
+<h2>Interactive Chart</h2>
+<div class="chart-controls">
+<span class="toggle-btn active" onclick="toggleTrace('chart-tax',4,this)">Tax Revenue</span>
+<span class="toggle-btn active" onclick="toggleTrace('chart-tax',5,this)">Price Labels</span>
+</div>
+<div id="chart-tax" class="plotly-chart"></div>
+<div class="slider-container">
+<label>Tax per unit: </label>
+<input type="range" min="0" max="30" value="10" id="tax-slider" oninput="updateTaxChart(this.value)">
+<span class="value" id="tax-val">$10</span>
+<span id="tax-check" style="margin-left:10px;font-weight:700;"></span>
+</div>
+
+<h2>Step-by-Step Explanation</h2>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Results of Corrective Tax (Figure 6)</div>
+<div class="accordion-body">
+<ul>
+<li><strong>Equilibrium changes:</strong> E1 to E2. Quantity decreases from q1 to q2. Price increases from P1 to P2.</li>
+<li><strong>Consumers:</strong> Consume less (q2), pay more (P2). Consumer surplus decreases.</li>
+<li><strong>Producers:</strong> Produce less (q2), receive less (P3 = P2 - Tax). Producer surplus decreases.</li>
+<li><strong>3rd parties:</strong> Less pollution damage. Gain from reduced externality.</li>
+<li><strong>Government:</strong> Collects tax revenue = Tax * q2. Can compensate affected parties or fund public services.</li>
+<li><strong>Net effect:</strong> Efficiency gains (the former DWL triangle becomes gains).</li>
+</ul>
+</div>
+</div>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Does the Tax Eliminate Pollution?</div>
+<div class="accordion-body">
+<p><strong>No!</strong> The corrective tax does NOT reduce pollution to zero. As Dr. Said's slides explain:</p>
+<p>"The corrective tax does not reduce the pollutants in the streams to zero. It merely rises the cost of using the stream to reflect the marginal damage done to alternative users."</p>
+<p>After the tax, producers compare the tax cost with alternatives: recycling waste, purifying waste before disposal, or reducing output. They choose whichever maximizes profit.</p>
+</div>
+</div>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Tax Revenue Uses</div>
+<div class="accordion-body">
+<p>The tax revenue can be used for:</p>
+<ul>
+<li>Compensating those harmed by remaining pollution (fishers, recreational users)</li>
+<li>Improving government services</li>
+<li>Reducing other taxes</li>
+<li>Example: Washington State carbon revenue (2017): Transportation $400M, Education $380M, Low-Income $124M</li>
+</ul>
+</div>
+</div>
+
+<h2>Carbon Tax Application</h2>
+<p>Global warming from CO2 emissions is a classic negative externality. A corrective tax on carbon emissions can reduce the greenhouse effect. <em>(Dr. Said's slides pp. 58-63)</em></p>
+<div id="chart-carbon" class="plotly-chart" style="min-height:300px;"></div>
+
+<div class="ext-links">
+<a href="https://www.investopedia.com/terms/p/pigoviantax.asp" target="_blank">Investopedia: Pigouvian Tax</a>
+<a href="https://carbonpricingdashboard.worldbank.org/" target="_blank">World Bank: Carbon Pricing Dashboard</a>
+</div>
+</section>
+</div>
+
+<script>
+function drawTaxChart(tax){
+  tax=Number(tax);const mec=10;
+  const q=Array.from({length:50},(_,i)=>i+1);
+  const mpc=q.map(x=>20+0.6*x);
+  const mpcTax=q.map(x=>20+0.6*x+tax);
+  const msc=q.map(x=>20+0.6*x+mec);
+  const mpb=q.map(x=>80-0.6*x);
+  const qNew=Math.round((80-20-tax)/(0.6+0.6));
+  const pNew=80-0.6*qNew;
+  const pProd=20+0.6*qNew;
+  const isOptimal=Math.abs(tax-mec)<1;
+
+  document.getElementById('tax-check').innerHTML=isOptimal?
+    '<span style="color:#2e7d32">Tax = MEC = $'+mec+'</span>':
+    '<span style="color:#c62828">Tax &#8800; MEC ($'+mec+')</span>';
+
+  const traces=[
+    {x:q,y:mpc,name:'MPC (S1)',line:{color:'#1565c0',width:3}},
+    {x:q,y:mpcTax,name:'MPC + Tax (S2)',line:{color:'#e65100',width:3}},
+    {x:q,y:msc,name:'MSC (reference)',line:{color:'#c62828',width:2,dash:'dot'}},
+    {x:q,y:mpb,name:'MPB = MSB (D)',line:{color:'#2e7d32',width:3}},
+    {x:[0,qNew,qNew,0,0],y:[pProd,pProd,pNew,pNew,pProd],
+     fill:'toself',fillcolor:'rgba(33,150,243,0.15)',line:{color:'#2196f3',width:1},name:'Tax Revenue'},
+    {x:[qNew,qNew],y:[pNew,pProd],mode:'markers+text',
+     text:['Consumer: $'+pNew.toFixed(0),'Producer: $'+pProd.toFixed(0)],
+     textposition:['top right','bottom right'],
+     marker:{size:10,color:['#2e7d32','#1565c0'],symbol:'circle'},
+     name:'Price Labels',showlegend:false}
+  ];
+  const layout={
+    title:'Corrective Tax: Internalizing Negative Externality',
+    xaxis:{title:'Quantity',range:[0,55]},yaxis:{title:'Price ($)',range:[0,100]},
+    legend:{x:0.01,y:0.99,bgcolor:'rgba(255,255,255,0.8)'},margin:{t:50,r:30},
+    annotations:[
+      {x:qNew,y:(pNew+pProd)/2,text:'Tax Revenue<br>$'+tax+' x '+qNew+' = $'+(tax*qNew),
+       showarrow:false,font:{size:11,color:'#1565c0'}}
+    ]
+  };
+  Plotly.newPlot('chart-tax',traces,layout,{responsive:true});
+}
+function updateTaxChart(v){document.getElementById('tax-val').textContent='$'+v;drawTaxChart(v);}
+function drawCarbonChart(){
+  const fuels=['Coal','Oil','Natural Gas'];
+  const rates=[11.46,2.91,0.29];
+  Plotly.newPlot('chart-carbon',[{x:fuels,y:rates,type:'bar',marker:{color:['#424242','#795548','#42a5f5']},
+    text:rates.map(r=>'$'+r),textposition:'outside'}],
+    {title:'Carbon Tax Rates by Fuel Type (US estimates, per ton/barrel/1000 cu ft)',
+     yaxis:{title:'Tax Rate ($)'},margin:{t:50,b:40,l:50,r:30},height:300},{responsive:true});
+}
+function initCharts(){drawTaxChart(10);drawCarbonChart();}
+</script>
+
+</body>
+</html>
