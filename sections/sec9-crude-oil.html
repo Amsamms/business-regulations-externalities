@@ -6,8 +6,8 @@
 <title>9. Crude Oil Surplus Analysis - Externalities Guide</title>
 <link rel="stylesheet" href="../css/styles.css">
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
 
@@ -130,7 +130,7 @@ function initCharts(){
      xaxis:{title:'Quantity',dtick:1,range:[0,5]},yaxis:{title:'Price ($)',range:[40,120]},
      legend:{x:0.01,y:0.99},margin:{t:50,r:30},
      annotations:[
-       {x:2,y:80,text:'Tax Revenue<br>$20 x 2 = $40',showarrow:true,ax:80,ay:0},
+       {x:2,y:80,text:'Tax Revenue<br>20 × 2 = 40',showarrow:true,ax:80,ay:0},
        {x:2.5,y:95,text:'DWL = 10<br>(becomes gain)',showarrow:true,ax:60,ay:-30}
      ]
   },{responsive:true});

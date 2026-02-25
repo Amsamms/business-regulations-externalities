@@ -6,8 +6,8 @@
 <title>2. Negative Externalities & Efficiency - Externalities Guide</title>
 <link rel="stylesheet" href="../css/styles.css">
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
 
@@ -45,14 +45,14 @@
 <div class="accordion-body">
 <p>In a free market, producers make decisions based on their <strong>private costs (MPC)</strong> and the <strong>market price</strong>. They don't consider the pollution damage to fishermen, swimmers, or downstream communities.</p>
 <p>The market equilibrium is where <strong>Supply = Demand</strong>, i.e., <strong>MPC = MPB</strong> at point E1 (quantity q1, price P1).</p>
-<p>$\text{At E1: } MPC = MPB \text{ (producers' cost = consumers' benefit)}$</p>
+<p>\(\text{At E1: } MPC = MPB \text{ (producers' cost = consumers' benefit)}\)</p>
 </div>
 </div>
 <div class="accordion">
 <div class="accordion-header" onclick="toggleAccordion(this)">Step 2: Why is E1 NOT Efficient?</div>
 <div class="accordion-body">
 <p>E1 is NOT efficient because <strong>it ignores the external cost (MEC)</strong>. At E1:</p>
-<p>$MSC = MPC + MEC > MPC = MPB = MSB$</p>
+<p>\(MSC = MPC + MEC > MPC = MPB = MSB\)</p>
 <p>This means: the <strong>true cost to society</strong> of each unit between q2 and q1 is <strong>greater</strong> than the benefit. Society is worse off for each of these extra units produced.</p>
 <div class="why-box"><strong>Intuition:</strong> Imagine each ton of paper costs $50 to produce (MPC) but also causes $10 of river damage (MEC). The true cost is $60 (MSC). If consumers only value it at $55 (MSB), then producing it destroys $5 of value - but the market produces it anyway because the producer only sees the $50 cost!</div>
 </div>
@@ -69,8 +69,8 @@
 <div class="accordion-header" onclick="toggleAccordion(this)">Step 4: What Does the DWL Triangle Mean?</div>
 <div class="accordion-body">
 <p>The triangle E1-E2-E3 represents the <strong>Deadweight Loss (DWL)</strong> - the total efficiency loss to society from overproduction.</p>
-<p>For each unit between q2 and q1: $MSC > MSB$, meaning each unit costs society more than it benefits.</p>
-<p>$DWL = \frac{1}{2} \times (q1 - q2) \times (MSC_{q1} - MSB_{q1})$</p>
+<p>For each unit between q2 and q1: \(MSC > MSB\), meaning each unit costs society more than it benefits.</p>
+<p>\(DWL = \frac{1}{2} \times (q1 - q2) \times (MSC_{q1} - MSB_{q1})\)</p>
 <p>This DWL can become <strong>efficiency gains</strong> if output decreases from q1 to q2.</p>
 </div>
 </div>
@@ -120,8 +120,8 @@ function drawNegExt(mec){
     xaxis:{title:'Quantity',range:[0,55]},yaxis:{title:'Price, Cost, Benefit ($)',range:[0,100]},
     legend:{x:0.01,y:0.99,bgcolor:'rgba(255,255,255,0.8)'},margin:{t:50,r:30},
     annotations:[
-      {x:qMarket,y:pMarket,text:'E1: Q='+qMarket+', P=$'+pMarket.toFixed(0),showarrow:true,arrowhead:2,ax:60,ay:-30},
-      {x:qEff,y:pEff,text:'E2: Q='+qEff+', P=$'+pEff.toFixed(0),showarrow:true,arrowhead:2,ax:-70,ay:-20}
+      {x:qMarket,y:pMarket,text:'E1: Q='+qMarket+', P='+pMarket.toFixed(0),showarrow:true,arrowhead:2,ax:60,ay:-30},
+      {x:qEff,y:pEff,text:'E2: Q='+qEff+', P='+pEff.toFixed(0),showarrow:true,arrowhead:2,ax:-70,ay:-20}
     ]
   };
   Plotly.newPlot('chart-negext',traces,layout,{responsive:true});

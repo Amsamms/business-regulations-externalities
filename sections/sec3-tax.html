@@ -6,8 +6,8 @@
 <title>3. Corrective Tax (Pigouvian) - Externalities Guide</title>
 <link rel="stylesheet" href="../css/styles.css">
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
 
@@ -111,7 +111,7 @@ function drawTaxChart(tax){
     {x:[0,qNew,qNew,0,0],y:[pProd,pProd,pNew,pNew,pProd],
      fill:'toself',fillcolor:'rgba(33,150,243,0.15)',line:{color:'#2196f3',width:1},name:'Tax Revenue'},
     {x:[qNew,qNew],y:[pNew,pProd],mode:'markers+text',
-     text:['Consumer: $'+pNew.toFixed(0),'Producer: $'+pProd.toFixed(0)],
+     text:['Consumer: '+pNew.toFixed(0),'Producer: '+pProd.toFixed(0)],
      textposition:['top right','bottom right'],
      marker:{size:10,color:['#2e7d32','#1565c0'],symbol:'circle'},
      name:'Price Labels',showlegend:false}
@@ -121,7 +121,7 @@ function drawTaxChart(tax){
     xaxis:{title:'Quantity',range:[0,55]},yaxis:{title:'Price ($)',range:[0,100]},
     legend:{x:0.01,y:0.99,bgcolor:'rgba(255,255,255,0.8)'},margin:{t:50,r:30},
     annotations:[
-      {x:qNew,y:(pNew+pProd)/2,text:'Tax Revenue<br>$'+tax+' x '+qNew+' = $'+(tax*qNew),
+      {x:qNew,y:(pNew+pProd)/2,text:'Tax Revenue<br>'+tax+' × '+qNew+' = '+(tax*qNew),
        showarrow:false,font:{size:11,color:'#1565c0'}}
     ]
   };

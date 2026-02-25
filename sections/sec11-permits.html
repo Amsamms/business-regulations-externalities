@@ -6,8 +6,8 @@
 <title>11. Tax vs Pollution Permits - Externalities Guide</title>
 <link rel="stylesheet" href="../css/styles.css">
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
 
@@ -86,21 +86,21 @@ function updatePermits(){
 
   Plotly.newPlot('chart-permits',[
     {x:q,y:demand,name:'Demand for Pollution Rights',line:{color:'#1565c0',width:3}},
-    {x:[0,50],y:[taxLevel,taxLevel],name:'Corrective Tax = $'+taxLevel+' (P fixed)',line:{color:'#c62828',width:3}},
+    {x:[0,50],y:[taxLevel,taxLevel],name:'Corrective Tax = '+taxLevel+' (P fixed)',line:{color:'#c62828',width:3}},
     {x:[permitQty,permitQty],y:[0,60],name:'Permits = '+permitQty+' (Q fixed)',line:{color:'#9c27b0',width:3,dash:'dash'}},
     // Tax intersection point
     {x:[qTax],y:[taxLevel],mode:'markers+text',text:['Q='+qTax+' (tax result)'],textposition:'bottom left',
      marker:{size:10,color:'#c62828'},showlegend:false},
     // Permit intersection point
-    {x:[permitQty],y:[pPermit],mode:'markers+text',text:['P=$'+pPermit+' (permit price)'],textposition:'top right',
+    {x:[permitQty],y:[pPermit],mode:'markers+text',text:['P='+pPermit+' (permit price)'],textposition:'top right',
      marker:{size:10,color:'#9c27b0'},showlegend:false}
   ],{title:'Corrective Tax vs Pollution Permits',
      xaxis:{title:'Quantity of Pollution',range:[0,55]},yaxis:{title:'Price of Pollution ($)',range:[0,65]},
      legend:{x:0.01,y:0.99},margin:{t:50,r:30},
      annotations:[
-       {x:qTax,y:taxLevel,text:'Tax sets PRICE=$'+taxLevel+'<br>Q='+qTax+' determined by demand',
+       {x:qTax,y:taxLevel,text:'Tax sets PRICE='+taxLevel+'<br>Q='+qTax+' determined by demand',
         showarrow:true,ax:-100,ay:-40,font:{size:10}},
-       {x:permitQty,y:pPermit,text:'Permits set Q='+permitQty+'<br>P=$'+pPermit+' determined by demand',
+       {x:permitQty,y:pPermit,text:'Permits set Q='+permitQty+'<br>P='+pPermit+' determined by demand',
         showarrow:true,ax:100,ay:-40,font:{size:10}}
      ]
   },{responsive:true});
