@@ -16,145 +16,405 @@
 
 <div class="main">
 <h1>10. Monopoly + Negative Externalities</h1>
-<p class="subtitle">Based on Dr. Said's Figures 10, 10-a, 10-b (slides pp. 47-56)</p>
+<p class="subtitle">Based on Dr. Said's Figures 10, 10-a, 10-b (slides pp. 46-63) &amp; Buchanan (1969)</p>
 
+<!-- Section 1: The Problem Setup -->
 <section>
-<h2>Two Opposing Distortions</h2>
-<p>When a monopoly exists alongside negative externalities, there are <strong>two distortions pulling in opposite directions</strong>:</p>
+<h2>The Problem: Two Opposing Distortions</h2>
+<p>What happens when a market has <strong>both</strong> a monopoly and a negative externality? This is one of the trickiest topics in welfare economics because the two distortions pull output in <strong>opposite directions</strong>:</p>
 <ol>
-<li><strong>Monopoly:</strong> Underproduces (restricts output below competitive level to raise price)</li>
-<li><strong>Negative Externality:</strong> Overproduces (ignores external cost, produces too much)</li>
+<li><strong>Monopoly restricts output</strong> &mdash; the monopolist sets MR = MPC and produces <em>less</em> than the competitive level to raise price and earn profit</li>
+<li><strong>Negative externality causes overproduction</strong> &mdash; ignoring external costs means the market produces <em>more</em> than the socially efficient level</li>
 </ol>
 
-<h2>Three Scenarios</h2>
-<div class="chart-controls">
-<span class="toggle-btn active" onclick="showMonopolyScenario('perfect',this)">Perfect Offset (Fig 10)</span>
-<span class="toggle-btn" onclick="showMonopolyScenario('over',this)">Monopolist Overproduces (Fig 10-a)</span>
-<span class="toggle-btn" onclick="showMonopolyScenario('under',this)">Monopolist Underproduces (Fig 10-b)</span>
+<div class="why-box">
+<strong>Why this matters:</strong> In a competitive market with a negative externality, the answer is always "impose a Pigouvian tax = MEC." But with a monopoly, a tax might make things <em>worse</em>! The monopolist is already restricting output, and a tax restricts it further. Sometimes the right policy is a <strong>subsidy</strong> to a polluting monopolist.
+</div>
+
+<h3>First-Best vs Second-Best Solutions</h3>
+<ul>
+<li><strong>First-best:</strong> Break up the monopoly (restore competition) AND impose a corrective tax = MEC. This fixes both distortions simultaneously.</li>
+<li><strong>Second-best:</strong> If breaking up the monopoly is infeasible, we must find the optimal policy <em>given</em> that monopoly power exists. The answer depends on the size of MEC relative to the monopoly markup.</li>
+</ul>
+<p>This is an application of the <strong>Lipsey-Lancaster (1956) Theory of Second Best</strong>: when one condition for efficiency is violated (monopoly), correcting another distortion (externality) does not necessarily improve welfare.</p>
+</section>
+
+<!-- Section 2: Interactive Chart -->
+<section>
+<h2>Interactive Chart: Monopoly + Externality</h2>
+<p>Equations: \(\text{AR} = 100 - Q\), \(\text{MR} = 100 - 2Q\), \(\text{MPC} = 10 + Q\), \(\text{MSC} = \text{MPC} + \text{MEC}\)</p>
+
+<div id="chart-monopoly-controls" class="chart-controls">
+<span class="toggle-btn active" onclick="toggleTrace('chart-monopoly',4,this)">DWL Area</span>
+<span class="toggle-btn" onclick="toggleTrace('chart-monopoly',5,this)">Competitive Point E2</span>
+<span class="toggle-btn" onclick="toggleTrace('chart-monopoly',6,this)">Price Lines</span>
+<span class="toggle-btn" onclick="toggleTrace('chart-monopoly',7,this)">Monopoly Markup</span>
 </div>
 <div id="chart-monopoly" class="plotly-chart"></div>
 
 <div class="slider-container">
 <label>MEC Level: </label>
-<input type="range" min="2" max="25" value="10" id="mec-mono-slider" oninput="updateMonopolyMEC(this.value)">
-<span class="value" id="mec-mono-val">$10</span>
+<input type="range" min="5" max="50" value="30" step="1" id="mec-mono-slider" oninput="drawMonopolyChart(Number(this.value))">
+<span class="value" id="mec-mono-val">$30</span>
+</div>
+
+<div id="scenario-text" style="padding:12px 18px;margin:10px 0;border-radius:8px;font-size:.95em;"></div>
+</section>
+
+<!-- Section 3: Step-by-Step Accordions -->
+<section>
+<h2>Step-by-Step Analysis</h2>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 1: The Monopolist's Decision (No Externality)</div>
+<div class="accordion-body">
+<p>The monopolist maximizes profit by setting <strong>MR = MPC</strong>:</p>
+<p>\[100 - 2Q = 10 + Q \implies 90 = 3Q \implies Q_{\text{mono}} = 30\]</p>
+<p>At \(Q = 30\):</p>
+<ul>
+<li><strong>Price (from AR):</strong> \(P = 100 - 30 = 70\)</li>
+<li><strong>MPC:</strong> \(10 + 30 = 40\)</li>
+<li><strong>Monopoly markup:</strong> \(P - MPC = 70 - 40 = 30\)</li>
+</ul>
+<p>This gives us point <strong>E1 = (30, 40)</strong> &mdash; the monopolist's equilibrium on the MPC curve.</p>
+<div class="why-box">
+<strong>Key number:</strong> The monopoly markup is $30. This is the gap between what consumers pay ($70) and what it costs to produce ($40). This number will be crucial for determining when the externality perfectly offsets monopoly power.
+</div>
+</div>
 </div>
 
 <div class="accordion">
-<div class="accordion-header" onclick="toggleAccordion(this)">Figure 10: Perfect Offset (q_monopoly = q_efficient)</div>
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 2: The Competitive Equilibrium (No Externality)</div>
 <div class="accordion-body">
-<p>The monopolist produces q1 where MR = MPC. By coincidence, this equals the efficient output where MSB = MSC (at E3). The two distortions <strong>perfectly cancel out</strong>.</p>
-<p><strong>Result:</strong> No government intervention needed! The market is already at efficiency.</p>
-<p>This is the "second best solution" - the monopolistic distortion offsets the externality distortion.</p>
-</div>
-</div>
-<div class="accordion">
-<div class="accordion-header" onclick="toggleAccordion(this)">Figure 10-a: Monopolist Still Overproduces (q_monopoly > q_efficient)</div>
-<div class="accordion-body">
-<p>The MEC is large enough that the efficient output (q2, where MSB=MSC) is less than the monopolist's output (q1, where MR=MPC).</p>
-<p><strong>Solution:</strong> Corrective tax needed, but LESS than under perfect competition. The monopoly already restricts some output.</p>
-</div>
-</div>
-<div class="accordion">
-<div class="accordion-header" onclick="toggleAccordion(this)">Figure 10-b: Monopolist Underproduces (q_monopoly < q_efficient)</div>
-<div class="accordion-body">
-<p>The MEC is small, so the efficient output (q*) is greater than the monopolist's output (q1).</p>
-<p><strong>Solution:</strong> A subsidy (not a tax!) is needed to encourage the monopolist to increase output to q*. The monopoly restriction is the dominant problem.</p>
+<p>Under perfect competition, firms produce where <strong>AR = MPC</strong> (price = marginal cost):</p>
+<p>\[100 - Q = 10 + Q \implies 90 = 2Q \implies Q_{\text{comp}} = 45\]</p>
+<p>At \(Q = 45\):</p>
+<ul>
+<li><strong>Price:</strong> \(P = 100 - 45 = 55\)</li>
+<li><strong>MPC:</strong> \(10 + 45 = 55\) &nbsp;(price = cost, as expected)</li>
+</ul>
+<p>This gives us point <strong>E2 = (45, 55)</strong> &mdash; the competitive equilibrium.</p>
+<p><strong>Without any externality, E2 is the efficient outcome</strong> and the monopolist underproduces by \(45 - 30 = 15\) units.</p>
 </div>
 </div>
 
-<p><strong>First-best solution:</strong> Break up the monopoly AND impose corrective tax simultaneously.</p>
-<p><strong>Second-best solution:</strong> If breaking up monopoly is infeasible, allow it to offset the externality naturally.</p>
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 3: Monopoly DWL (No Externality)</div>
+<div class="accordion-body">
+<p>The deadweight loss from monopoly (without any externality) is the triangle between E1 and E2:</p>
+<ul>
+<li><strong>Base:</strong> \(Q_{\text{comp}} - Q_{\text{mono}} = 45 - 30 = 15\) units</li>
+<li><strong>Height:</strong> \(\text{AR}(30) - \text{MPC}(30) = 70 - 40 = 30\) (the markup)</li>
+</ul>
+<p>\[\text{DWL}_{\text{monopoly}} = \frac{1}{2} \times 15 \times 30 = 225\]</p>
+<p>For each unit between 30 and 45, consumers value it more than it costs to produce (AR > MPC), but the monopolist refuses to produce it because MR < MPC for those units.</p>
+</div>
+</div>
 
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 4: Adding the Externality &mdash; MSC Shifts Up</div>
+<div class="accordion-body">
+<p>Now introduce a negative externality with marginal external cost MEC. The social cost becomes:</p>
+<p>\[\text{MSC} = \text{MPC} + \text{MEC} = (10 + Q) + \text{MEC}\]</p>
+<p>The <strong>socially efficient</strong> output is where \(\text{AR} = \text{MSC}\):</p>
+<p>\[100 - Q = 10 + Q + \text{MEC} \implies Q_{\text{eff}} = \frac{90 - \text{MEC}}{2}\]</p>
+<p>Notice what happens to the <strong>competitive equilibrium</strong> at E2 (\(Q = 45\)): it is now <strong>inefficient</strong> because MSC > AR at that quantity. Competition overproduces when there's a negative externality.</p>
+<div class="why-box">
+<strong>Critical observation:</strong> The monopolist's quantity (\(Q = 30\)) doesn't change when we add the externality &mdash; the monopolist still sets MR = MPC and ignores external costs. But the <em>efficient</em> quantity shifts down from 45 (with no externality) toward the monopolist's output.
+</div>
+</div>
+</div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 5: The Key Insight &mdash; Two Wrongs Can Make a Right</div>
+<div class="accordion-body">
+<p>Set \(Q_{\text{eff}} = Q_{\text{mono}}\) to find when the two distortions perfectly cancel:</p>
+<p>\[\frac{90 - \text{MEC}}{2} = 30 \implies \text{MEC} = 30\]</p>
+<p>When MEC = 30, the efficient output <em>exactly equals</em> the monopolist's output. No government intervention is needed!</p>
+<div class="why-box">
+<strong>Buchanan's Insight (1969):</strong> Perfect offset occurs when MEC equals the monopoly markup. The monopoly markup is \(\text{AR}(Q_{\text{mono}}) - \text{MPC}(Q_{\text{mono}}) = 70 - 40 = 30\). At this point, the monopolist's output restriction (which normally causes DWL) coincidentally produces exactly the right amount. "The monopolist simultaneously imposes two external diseconomies on the economy: pollution AND output restriction. These work in opposite directions."
+</div>
+<p>At MEC = 30: point <strong>E3 = (30, 70)</strong> &mdash; where MSC intersects AR at the monopolist's quantity. Since AR(30) = MSC(30) = 70, this confirms the efficient output is 30.</p>
+</div>
+</div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Step 6: Three Scenarios Depend on MEC Size</div>
+<div class="accordion-body">
+<h4>Scenario A: Perfect Offset (MEC = 30 = Markup)</h4>
+<ul>
+<li>\(Q_{\text{eff}} = 30 = Q_{\text{mono}}\)</li>
+<li>The two distortions exactly cancel</li>
+<li><strong>Policy:</strong> No intervention needed (second-best optimum)</li>
+</ul>
+
+<h4>Scenario B: Overproduction (MEC &gt; 30)</h4>
+<ul>
+<li>Example: MEC = 45 &rarr; \(Q_{\text{eff}} = (90-45)/2 = 22.5 < 30\)</li>
+<li>The externality is so large that even the monopolist produces too much</li>
+<li><strong>Policy:</strong> Tax needed, but <em>smaller</em> than under competition (monopoly already restricts some output)</li>
+</ul>
+
+<h4>Scenario C: Underproduction (MEC &lt; 30)</h4>
+<ul>
+<li>Example: MEC = 15 &rarr; \(Q_{\text{eff}} = (90-15)/2 = 37.5 > 30\)</li>
+<li>The externality is small; monopoly restriction is the dominant problem</li>
+<li><strong>Policy:</strong> A <strong>subsidy</strong> (not a tax!) to encourage the monopolist to increase output toward \(Q_{\text{eff}}\)</li>
+</ul>
+
+<div class="why-box">
+<strong>The surprising result:</strong> It may be optimal to <em>subsidize</em> a polluting monopolist! This seems counterintuitive, but the welfare loss from underproduction (monopoly restricting output) outweighs the welfare loss from pollution when MEC is small.
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section 4: Comparison Table -->
+<section>
+<h2>Competition vs Monopoly: Side-by-Side</h2>
+<table>
+<tr><th>Aspect</th><th>Perfect Competition</th><th>Monopoly</th></tr>
+<tr><td style="text-align:left;font-weight:600;">Output rule</td><td>AR = MPC</td><td>MR = MPC</td></tr>
+<tr><td style="text-align:left;font-weight:600;">Output level</td><td>Q = 45</td><td>Q = 30</td></tr>
+<tr><td style="text-align:left;font-weight:600;">Without externality</td><td class="correct">Efficient (Q* = 45)</td><td class="wrong">DWL = 225 (underproduces)</td></tr>
+<tr><td style="text-align:left;font-weight:600;">With MEC = 30</td><td class="wrong">Overproduces (Q* = 30), need tax = 30</td><td class="correct">Perfect offset! No intervention</td></tr>
+<tr><td style="text-align:left;font-weight:600;">With MEC = 45</td><td class="wrong">Overproduces (Q* = 22.5), need tax = 45</td><td class="highlight">Overproduces (Q* = 22.5), need smaller tax</td></tr>
+<tr><td style="text-align:left;font-weight:600;">With MEC = 15</td><td class="wrong">Overproduces (Q* = 37.5), need tax = 15</td><td class="highlight">Underproduces (Q* = 37.5), need SUBSIDY</td></tr>
+</table>
+</section>
+
+<!-- Section 5: Buchanan Why-Box -->
+<section>
+<h2>Buchanan's Key Contribution (1969)</h2>
+<div class="why-box">
+<strong>Core idea:</strong> "The monopolist simultaneously imposes two external diseconomies on the economy: pollution AND output restriction. These work in opposite directions." When MEC exactly equals the monopoly markup (AR &minus; MPC at the monopolist's quantity), the two distortions perfectly offset, and the monopolist's output is socially efficient without any government intervention.
+</div>
+<p>This result has profound policy implications:</p>
+<ul>
+<li>A blanket "tax all polluters" policy is wrong when the polluter has market power</li>
+<li>The optimal tax/subsidy depends on the <strong>relative size</strong> of MEC vs the monopoly markup</li>
+<li>When MEC &lt; markup: the monopoly restriction dominates &rarr; <strong>subsidize</strong></li>
+<li>When MEC &gt; markup: the pollution dominates &rarr; <strong>tax</strong> (but less than under competition)</li>
+<li>When MEC = markup: do nothing &rarr; <strong>perfect second-best offset</strong></li>
+</ul>
+</section>
+
+<!-- Section 6: External Links -->
+<section>
+<h2>Further Reading</h2>
 <div class="ext-links">
 <a href="https://www.economicshelp.org/microessays/markets/monopoly/" target="_blank">Economics Help: Monopoly and Externalities</a>
 <a href="https://www.tutor2u.net/economics/topics/monopoly" target="_blank">tutor2u: Monopoly</a>
+<a href="https://www.jstor.org/stable/1823775" target="_blank">Buchanan (1969) &mdash; External Diseconomies, Corrective Taxes, and Market Structure (AER)</a>
 </div>
 </section>
+
 </div>
 
 <script>
-function showMonopolyScenario(type, btn){
-  if(btn){
-    document.querySelectorAll('.chart-controls .toggle-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  const q=Array.from({length:50},(_,i)=>i+1);
-  let mpc,msc,ar,mr,title,annotations=[];
+function drawMonopolyChart(mec) {
+  // Update slider display
+  document.getElementById('mec-mono-val').textContent = '$' + mec;
+  document.getElementById('mec-mono-slider').value = mec;
 
-  if(type==='perfect'){
-    mpc=q.map(x=>10+0.8*x);msc=q.map(x=>20+0.8*x);
-    ar=q.map(x=>70-0.6*x);mr=q.map(x=>70-1.2*x);
-    title='Fig 10: Perfect Offset - Monopolist Output = Efficient Output';
-    const qMon=Math.round((70-10)/(1.2+0.8)); // MR=MPC
-    const qEff=Math.round((70-20)/(0.6+0.8)); // AR=MSC
-    annotations=[{x:qMon,y:10+0.8*qMon,text:'q_mono = q_eff<br>Perfect offset!',showarrow:true,ax:60,ay:-40}];
-  }else if(type==='over'){
-    mpc=q.map(x=>5+0.6*x);msc=q.map(x=>25+0.6*x);
-    ar=q.map(x=>70-0.6*x);mr=q.map(x=>70-1.2*x);
-    title='Fig 10-a: Monopolist Overproduces (large MEC, needs tax)';
-    const qMon=Math.round((70-5)/(1.2+0.6));
-    const qEff=Math.round((70-25)/(0.6+0.6));
-    annotations=[
-      {x:qMon,y:5+0.6*qMon,text:'q_mono',showarrow:true,ax:-40,ay:30},
-      {x:qEff,y:25+0.6*qEff,text:'q_eff < q_mono',showarrow:true,ax:50,ay:-30}
-    ];
-  }else{
-    mpc=q.map(x=>10+1.0*x);msc=q.map(x=>15+1.0*x);
-    ar=q.map(x=>70-0.6*x);mr=q.map(x=>70-1.2*x);
-    title='Fig 10-b: Monopolist Underproduces (small MEC, needs subsidy)';
-    const qMon=Math.round((70-10)/(1.2+1.0));
-    const qEff=Math.round((70-15)/(0.6+1.0));
-    annotations=[
-      {x:qMon,y:10+1.0*qMon,text:'q_mono',showarrow:true,ax:-40,ay:30},
-      {x:qEff,y:15+1.0*qEff,text:'q_eff > q_mono',showarrow:true,ax:50,ay:-30}
-    ];
+  // Fixed quantities
+  var qMono = 30;
+  var qComp = 45;
+  var qEff = (90 - mec) / 2;
+
+  // Scenario detection
+  var diff = qMono - qEff;
+  var scenario;
+  if (Math.abs(diff) < 0.5) scenario = 'perfect';
+  else if (diff > 0) scenario = 'over';
+  else scenario = 'under';
+
+  // Generate curve data (Q from 0 to 55)
+  var q = [];
+  for (var i = 0; i <= 55; i++) q.push(i);
+  var mpcY = q.map(function(x) { return 10 + x; });
+  var mscY = q.map(function(x) { return 10 + x + mec; });
+  var arY  = q.map(function(x) { return 100 - x; });
+  var mrY  = q.map(function(x) { return 100 - 2 * x; });
+
+  // Trace 0: MPC (blue solid)
+  var tMPC = {
+    x: q, y: mpcY, name: 'MPC = 10 + Q',
+    line: {color: '#1565c0', width: 3}, hovertemplate: 'Q=%{x}<br>MPC=$%{y:.0f}<extra></extra>'
+  };
+
+  // Trace 1: MSC (red dashed)
+  var tMSC = {
+    x: q, y: mscY, name: 'MSC = MPC + ' + mec,
+    line: {color: '#c62828', width: 3, dash: 'dash'}, hovertemplate: 'Q=%{x}<br>MSC=$%{y:.0f}<extra></extra>'
+  };
+
+  // Trace 2: AR/MSB (green solid)
+  var tAR = {
+    x: q, y: arY, name: 'AR = MSB = 100 - Q',
+    line: {color: '#2e7d32', width: 3}, hovertemplate: 'Q=%{x}<br>AR=$%{y:.0f}<extra></extra>'
+  };
+
+  // Trace 3: MR (orange dotted)
+  var tMR = {
+    x: q, y: mrY, name: 'MR = 100 - 2Q',
+    line: {color: '#ff9800', width: 3, dash: 'dot'}, hovertemplate: 'Q=%{x}<br>MR=$%{y:.0f}<extra></extra>'
+  };
+
+  // Trace 4: DWL / Efficiency Gain polygon
+  var dwlX, dwlY, dwlColor, dwlName;
+  if (scenario === 'perfect') {
+    // Show "avoided DWL" between qMono and qComp (green)
+    dwlX = [qMono, qComp, qMono];
+    dwlY = [10 + qMono + mec, 100 - qComp, 100 - qMono];
+    dwlColor = 'rgba(76,175,80,0.2)';
+    dwlName = 'Avoided DWL (monopoly = efficient)';
+  } else if (scenario === 'over') {
+    // Overproduction: wide side at qMono, point at qEff
+    var arAtMono = 100 - qMono;
+    var mscAtMono = 10 + qMono + mec;
+    var arAtEff = 100 - qEff;
+    dwlX = [qMono, qMono, qEff];
+    dwlY = [arAtMono, mscAtMono, arAtEff];
+    dwlColor = 'rgba(255,152,0,0.25)';
+    dwlName = 'DWL (overproduction)';
+  } else {
+    // Underproduction: wide side at qMono, point at qEff
+    var arAtMono = 100 - qMono;
+    var mscAtMono = 10 + qMono + mec;
+    var arAtEff = 100 - qEff;
+    dwlX = [qMono, qMono, qEff];
+    dwlY = [mscAtMono, arAtMono, arAtEff];
+    dwlColor = 'rgba(255,152,0,0.25)';
+    dwlName = 'DWL (underproduction)';
+  }
+  var tDWL = {
+    x: dwlX, y: dwlY, name: dwlName,
+    fill: 'toself', fillcolor: dwlColor,
+    line: {color: scenario === 'perfect' ? 'rgba(76,175,80,0.5)' : 'rgba(255,152,0,0.5)', width: 2},
+    hoverinfo: 'name', visible: true
+  };
+
+  // Trace 5: Competitive point E2
+  var tE2 = {
+    x: [qComp], y: [55], name: 'E2 (Competitive: Q=45, P=55)',
+    mode: 'markers+text', text: ['E2'], textposition: 'top right',
+    marker: {color: '#9c27b0', size: 12, symbol: 'diamond'},
+    hovertemplate: 'E2: Q=45, P=$55<extra></extra>', visible: false
+  };
+
+  // Trace 6: Price lines (horizontal dashed lines at P_mono and MPC_mono)
+  var pMono = 100 - qMono; // = 70
+  var mpcMono = 10 + qMono; // = 40
+  var tPriceLines = {
+    x: [0, qMono, null, 0, qMono], y: [pMono, pMono, null, mpcMono, mpcMono],
+    name: 'Price Lines (P=70, MPC=40)',
+    mode: 'lines', line: {color: '#78909c', width: 1.5, dash: 'dot'},
+    hoverinfo: 'name', visible: false
+  };
+
+  // Trace 7: Monopoly markup gap (vertical line at qMono from MPC to AR)
+  var tMarkup = {
+    x: [qMono, qMono], y: [mpcMono, pMono],
+    name: 'Monopoly Markup = ' + (pMono - mpcMono),
+    mode: 'lines+text', text: ['', 'Markup=' + (pMono - mpcMono)],
+    textposition: ['bottom center', 'top center'],
+    line: {color: '#e91e63', width: 4}, hoverinfo: 'name', visible: false
+  };
+
+  var traces = [tMPC, tMSC, tAR, tMR, tDWL, tE2, tPriceLines, tMarkup];
+
+  // Sync trace visibility with toggle button states
+  var btns = document.querySelectorAll('#chart-monopoly-controls .toggle-btn');
+  if (btns.length === 4) {
+    tDWL.visible = btns[0].classList.contains('active');
+    tE2.visible = btns[1].classList.contains('active');
+    tPriceLines.visible = btns[2].classList.contains('active');
+    tMarkup.visible = btns[3].classList.contains('active');
   }
 
-  Plotly.newPlot('chart-monopoly',[
-    {x:q,y:mpc,name:'MPC',line:{color:'#1565c0',width:3}},
-    {x:q,y:msc,name:'MSC',line:{color:'#c62828',width:3,dash:'dash'}},
-    {x:q,y:ar,name:'AR = MSB (Demand)',line:{color:'#2e7d32',width:3}},
-    {x:q,y:mr,name:'MR',line:{color:'#ff9800',width:3,dash:'dot'}}
-  ],{title:title,xaxis:{title:'Quantity',range:[0,50]},yaxis:{title:'Price',range:[0,80]},
-     legend:{x:0.5,y:0.99},margin:{t:50,r:30},annotations:annotations},{responsive:true});
+  // Annotations: E1 always, E3 always, E* when qMono != qEff
+  var annotations = [
+    {
+      x: qMono, y: mpcMono, text: '<b>E1</b>', showarrow: true,
+      ax: -35, ay: 25, font: {color: '#1565c0', size: 13}
+    },
+    {
+      x: qMono, y: 10 + qMono + mec, text: '<b>E3</b>', showarrow: true,
+      ax: -35, ay: -25, font: {color: '#c62828', size: 13}
+    }
+  ];
+
+  if (scenario !== 'perfect') {
+    var arAtEff = 100 - qEff;
+    annotations.push({
+      x: qEff, y: arAtEff, text: '<b>E*</b> (Q=' + qEff.toFixed(1) + ')',
+      showarrow: true, ax: qEff < qMono ? -50 : 50, ay: -30,
+      font: {color: '#2e7d32', size: 13}
+    });
+  }
+
+  // Title
+  var title;
+  if (scenario === 'perfect') {
+    title = 'MEC=$' + mec + ': PERFECT OFFSET (Q_mono = Q_eff = 30)';
+  } else if (scenario === 'over') {
+    title = 'MEC=$' + mec + ': Monopolist Overproduces (Q_eff=' + qEff.toFixed(1) + ' < Q_mono=30)';
+  } else {
+    title = 'MEC=$' + mec + ': Monopolist Underproduces (Q_eff=' + qEff.toFixed(1) + ' > Q_mono=30)';
+  }
+
+  var layout = {
+    title: {text: title, font: {size: 14}},
+    xaxis: {title: 'Quantity', range: [0, 56], dtick: 10},
+    yaxis: {title: 'Price / Cost ($)', range: [0, 120]},
+    legend: {x: 0.55, y: 0.98, font: {size: 11}},
+    margin: {t: 50, r: 30, b: 50, l: 60},
+    annotations: annotations,
+    shapes: [
+      // Vertical dashed line at qMono
+      {type: 'line', x0: qMono, x1: qMono, y0: 0, y1: 100 - qMono,
+       line: {color: '#bdbdbd', width: 1, dash: 'dot'}},
+      // Vertical dashed line at qEff (when different)
+      scenario !== 'perfect' ? {type: 'line', x0: qEff, x1: qEff, y0: 0, y1: 100 - qEff,
+       line: {color: '#bdbdbd', width: 1, dash: 'dot'}} : {}
+    ]
+  };
+
+  Plotly.newPlot('chart-monopoly', traces, layout, {responsive: true});
+
+  // Update scenario text
+  updateScenarioText(scenario, mec, qEff);
 }
 
-function updateMonopolyMEC(v){
-  document.getElementById('mec-mono-val').textContent='$'+v;
-  const mec=Number(v);
-  const q=Array.from({length:50},(_,i)=>i+1);
-  const mpc=q.map(x=>10+0.8*x);
-  const msc=q.map(x=>10+0.8*x+mec);
-  const ar=q.map(x=>70-0.6*x);
-  const mr=q.map(x=>70-1.2*x);
-  const qMon=Math.round((70-10)/(1.2+0.8));
-  const qEff=Math.round((70-10-mec)/(0.6+0.8));
-
-  let title,annotations;
-  if(Math.abs(qMon-qEff)<=1){
-    title='MEC=$'+mec+': Perfect Offset';
-    annotations=[{x:qMon,y:10+0.8*qMon,text:'q_mono ≈ q_eff',showarrow:true,ax:60,ay:-40}];
-  }else if(qMon>qEff){
-    title='MEC=$'+mec+': Monopolist Overproduces (needs tax)';
-    annotations=[{x:qMon,y:10+0.8*qMon,text:'q_mono='+qMon,showarrow:true,ax:-40,ay:30},
-                 {x:qEff,y:10+0.8*qEff+mec,text:'q_eff='+qEff,showarrow:true,ax:50,ay:-30}];
-  }else{
-    title='MEC=$'+mec+': Monopolist Underproduces (needs subsidy)';
-    annotations=[{x:qMon,y:10+0.8*qMon,text:'q_mono='+qMon,showarrow:true,ax:-40,ay:30},
-                 {x:qEff,y:10+0.8*qEff+mec,text:'q_eff='+qEff,showarrow:true,ax:50,ay:-30}];
+function updateScenarioText(scenario, mec, qEff) {
+  var el = document.getElementById('scenario-text');
+  if (scenario === 'perfect') {
+    el.style.background = '#e8f5e9';
+    el.style.borderLeft = '4px solid #4caf50';
+    el.innerHTML = '<strong style="color:#2e7d32;">PERFECT OFFSET (Fig 10)</strong><br>' +
+      'MEC = $' + mec + ' = Monopoly markup ($30). The monopolist\'s output (Q=30) ' +
+      'is exactly the socially efficient output.<br>' +
+      '<strong>Policy:</strong> No government intervention needed.';
+  } else if (scenario === 'over') {
+    el.style.background = '#fff3e0';
+    el.style.borderLeft = '4px solid #ff9800';
+    el.innerHTML = '<strong style="color:#e65100;">OVERPRODUCTION (Fig 10-a)</strong><br>' +
+      'MEC = $' + mec + ' > Markup ($30). Efficient Q* = ' + qEff.toFixed(1) +
+      ' < Q_mono = 30. Even the monopolist produces too much.<br>' +
+      '<strong>Policy:</strong> Corrective tax needed, but <em>smaller</em> than under competition ' +
+      '(monopoly already restricts some output).';
+  } else {
+    el.style.background = '#e3f2fd';
+    el.style.borderLeft = '4px solid #1565c0';
+    el.innerHTML = '<strong style="color:#1565c0;">UNDERPRODUCTION (Fig 10-b)</strong><br>' +
+      'MEC = $' + mec + ' < Markup ($30). Efficient Q* = ' + qEff.toFixed(1) +
+      ' > Q_mono = 30. Monopoly restriction is the dominant problem.<br>' +
+      '<strong>Policy:</strong> A <em>subsidy</em> (not a tax!) to encourage the monopolist to increase output.';
   }
-
-  Plotly.newPlot('chart-monopoly',[
-    {x:q,y:mpc,name:'MPC',line:{color:'#1565c0',width:3}},
-    {x:q,y:msc,name:'MSC (MPC+'+mec+')',line:{color:'#c62828',width:3,dash:'dash'}},
-    {x:q,y:ar,name:'AR = MSB (Demand)',line:{color:'#2e7d32',width:3}},
-    {x:q,y:mr,name:'MR',line:{color:'#ff9800',width:3,dash:'dot'}}
-  ],{title:title,xaxis:{title:'Quantity',range:[0,50]},yaxis:{title:'Price',range:[0,80]},
-     legend:{x:0.5,y:0.99},margin:{t:50,r:30},annotations:annotations},{responsive:true});
 }
 
-function initCharts(){showMonopolyScenario('perfect',document.querySelector('.chart-controls .toggle-btn'));}
+function initCharts() { drawMonopolyChart(30); }
 </script>
 
 </body>
