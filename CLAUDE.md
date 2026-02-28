@@ -69,7 +69,7 @@ All efficiency gain/DWL triangles follow this pattern:
 ## Error Flags in Materials
 1. Dr. Galal labels market eq (Q=40) as "efficient" in negative ext (should be Q=30)
 2. Dr. Galal says equilibrium at Q=30 in positive ext (table shows Q=40)
-3. Crude oil surplus: -10 redistribution vs +10 efficiency gain (both correct, different perspectives)
+3. Crude oil surplus: Original notes had arithmetic error (-35 should be -25 for producer/consumer), corrected net = +10 efficiency gain
 4. "Gouvian Tax" = "Pigouvian Tax" (Arabic transliteration, not error)
 
 ## Bugs Found During Verification (11 total, all fixed)

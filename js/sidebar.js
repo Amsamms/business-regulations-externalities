@@ -26,6 +26,7 @@ function renderSidebar(){
     <div class="nav-group">Practice & Review</div>
     <a href="${prefix}sec12-exams.html">12. Exam Practice (4 Exams)</a>
     <a href="${prefix}sec13-errors.html">13. Error Flags Summary</a>
+    <a href="${prefix}sec14-triangle-proof.html">14. Triangle Rule Proof</a>
   `;
   document.body.prepend(nav);
 

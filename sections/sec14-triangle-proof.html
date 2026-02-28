@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>14. Surplus Decomposition Proof - Externalities Guide</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{pageReady:()=>{return MathJax.startup.defaultPageReady();}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+.anim-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+.anim-btn{padding:8px 18px;border:2px solid var(--primary);border-radius:6px;background:#fff;color:var(--primary);cursor:pointer;font-weight:600;font-size:.9em;transition:all .2s;}
+.anim-btn:hover{background:#e8eaf6;}
+.anim-btn.playing{background:var(--primary);color:#fff;}
+.step-panel{background:#f5f5f5;border-left:4px solid var(--primary);padding:15px 20px;margin:10px 0;border-radius:0 8px 8px 0;min-height:90px;}
+.step-counter{font-weight:700;color:var(--primary);font-size:.85em;margin-bottom:5px;}
+.step-text{font-size:.95em;line-height:1.6;}
+.case-formulas{background:#f8f9fa;padding:12px 18px;border-radius:8px;margin:10px 0;font-size:.92em;}
+.case-formulas p{margin-bottom:4px;}
+.rule-box{background:linear-gradient(135deg,#fff8e1,#fff3e0);border:2px solid #ff9800;border-radius:10px;padding:20px 25px;margin:15px 0;text-align:center;}
+.rule-box h3{color:#e65100;margin-top:0;font-size:1.3em;}
+.rule-box p{font-size:1.05em;margin-bottom:0;}
+.conclusion-box{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid #4caf50;border-radius:10px;padding:20px 25px;margin:20px 0;text-align:center;}
+.conclusion-box h3{color:#2e7d32;margin-top:0;}
+.tally-box{display:inline-block;background:#fff;border:1px solid #ccc;border-radius:6px;padding:4px 10px;margin:2px 4px;font-family:monospace;font-size:.9em;}
+.tally-pos{color:#2e7d32;font-weight:700;}
+.tally-neg{color:#c62828;font-weight:700;}
+.tally-net{color:#e65100;font-weight:700;}
+</style>
+</head>
+<body>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/common.js"></script>
+
+<div class="main">
+<h1>14. Surplus Decomposition Proof</h1>
+<p class="subtitle">Why the DWL/Efficiency Gain Triangle is ALWAYS Between MSB &amp; MSC</p>
+
+<section>
+<div class="rule-box">
+<h3>The Claim We Will Prove</h3>
+<p>When government corrects an externality with a tax or subsidy, each stakeholder's gain/loss is a geometric area on the graph. When you <strong>sum all areas</strong>, everything cancels except the triangle between <strong>MSB</strong> and <strong>MSC</strong>.</p>
+</div>
+
+<p>We prove this across <strong>4 cases</strong> using actual course data. Each animation builds up the stakeholder areas one by one, then dramatically removes them to reveal the net triangle.</p>
+</section>
+
+<!-- ============ CASE 1: Dr. Galal Negative Ext + Tax ============ -->
+<section>
+<h2>Case 1: Dr. Galal Negative Externality + Tax = $20</h2>
+<div class="case-formulas">
+<p>\(\text{MPB} = \text{MSB} = 90 - Q\) &nbsp;(no external benefit)</p>
+<p>\(\text{MPC} = 10 + Q\)</p>
+<p>\(\text{MEC} = 20\) (constant) &rarr; \(\text{MSC} = 30 + Q\)</p>
+<p><strong>Market (MPB=MPC):</strong> Q=40, P=$50 &nbsp;|&nbsp; <strong>After Tax (MSB=MSC):</strong> Q=30, P<sub>c</sub>=$60, P<sub>p</sub>=$40</p>
+</div>
+<div id="chart-case1" class="plotly-chart"></div>
+<div class="anim-controls">
+<button class="anim-btn" onclick="playCase('case1')" id="case1-play-btn">&#9654; Play</button>
+<button class="anim-btn" onclick="pauseCase('case1')">&#9646;&#9646; Pause</button>
+<button class="anim-btn" onclick="stepForward('case1')">&#9197; Step</button>
+<button class="anim-btn" onclick="resetCase('case1')">&#8634; Reset</button>
+</div>
+<div class="step-panel">
+<div class="step-counter" id="case1-counter">Ready</div>
+<div class="step-text" id="case1-text">Click Play or Step Forward to begin the surplus decomposition.</div>
+</div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Surplus Calculation Details</div>
+<div class="accordion-body">
+<p><strong>CS change:</strong> Consumers now pay $60 instead of $50, and buy 30 instead of 40. CS loss = trapezoid area = &frac12;(40+30)&times;10 = <b>350</b>.</p>
+<p><strong>PS change:</strong> Producers now receive $40 instead of $50, and sell 30 instead of 40. PS loss = trapezoid area = &frac12;(40+30)&times;10 = <b>350</b>.</p>
+<p><strong>Gov revenue:</strong> Tax of $20 on 30 units = rectangle = <b>600</b>.</p>
+<p><strong>3rd party gain:</strong> MEC&times;(Q<sub>old</sub>&minus;Q<sub>new</sub>) + reduction in total external cost = parallelogram = <b>200</b>.</p>
+<p><strong>Net:</strong> &minus;350 &minus;350 + 600 + 200 = <b>+100</b> = &frac12;&times;10&times;20 = DWL triangle area.</p>
+</div>
+</div>
+</section>
+
+<!-- ============ CASE 2: Vaccination Negative Ext + Tax ============ -->
+<section>
+<h2>Case 2: Vaccination Negative Externality + Tax = $20</h2>
+<div class="case-formulas">
+<p>\(\text{MPB} = \text{MSB} = 110 - 10Q\) &nbsp;(no external benefit)</p>
+<p>\(\text{MPC} = 50 + 10Q\)</p>
+<p>\(\text{MEC} = 20\) (constant) &rarr; \(\text{MSC} = 70 + 10Q\)</p>
+<p><strong>Market (MPB=MPC):</strong> Q=3, P=$80 &nbsp;|&nbsp; <strong>After Tax (MSB=MSC):</strong> Q=2, P<sub>c</sub>=$90, P<sub>p</sub>=$70</p>
+</div>
+<div id="chart-case2" class="plotly-chart"></div>
+<div class="anim-controls">
+<button class="anim-btn" onclick="playCase('case2')" id="case2-play-btn">&#9654; Play</button>
+<button class="anim-btn" onclick="pauseCase('case2')">&#9646;&#9646; Pause</button>
+<button class="anim-btn" onclick="stepForward('case2')">&#9197; Step</button>
+<button class="anim-btn" onclick="resetCase('case2')">&#8634; Reset</button>
+</div>
+<div class="step-panel">
+<div class="step-counter" id="case2-counter">Ready</div>
+<div class="step-text" id="case2-text">Click Play or Step Forward to begin the surplus decomposition.</div>
+</div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Surplus Calculation Details</div>
+<div class="accordion-body">
+<p><strong>CS change:</strong> Trapezoid = &frac12;(3+2)&times;10 = <b>25</b> loss.</p>
+<p><strong>PS change:</strong> Trapezoid = &frac12;(3+2)&times;10 = <b>25</b> loss.</p>
+<p><strong>Gov revenue:</strong> $20 &times; 2 = <b>40</b>.</p>
+<p><strong>3rd party gain:</strong> MEC reduction = <b>20</b>.</p>
+<p><strong>Net:</strong> &minus;25 &minus;25 + 40 + 20 = <b>+10</b> = &frac12;&times;1&times;20 = DWL triangle area. (Matches sec9 crude oil!)</p>
+</div>
+</div>
+</section>
+
+<!-- ============ CASE 3: Vaccination Positive Ext + Subsidy ============ -->
+<section>
+<h2>Case 3: Vaccination Positive Externality + Subsidy = $20</h2>
+<div class="case-formulas">
+<p>\(\text{MPC} = \text{MSC} = 50 + 10Q\) &nbsp;(no external cost)</p>
+<p>\(\text{MPB} = 110 - 10Q\)</p>
+<p>\(\text{MEB} = 20\) (constant) &rarr; \(\text{MSB} = 130 - 10Q\)</p>
+<p><strong>Market (MPB=MPC):</strong> Q=3, P=$80 &nbsp;|&nbsp; <strong>After Subsidy (MSB=MSC):</strong> Q=4, P<sub>c</sub>=$70, P<sub>p</sub>=$90</p>
+</div>
+<div id="chart-case3" class="plotly-chart"></div>
+<div class="anim-controls">
+<button class="anim-btn" onclick="playCase('case3')" id="case3-play-btn">&#9654; Play</button>
+<button class="anim-btn" onclick="pauseCase('case3')">&#9646;&#9646; Pause</button>
+<button class="anim-btn" onclick="stepForward('case3')">&#9197; Step</button>
+<button class="anim-btn" onclick="resetCase('case3')">&#8634; Reset</button>
+</div>
+<div class="step-panel">
+<div class="step-counter" id="case3-counter">Ready</div>
+<div class="step-text" id="case3-text">Click Play or Step Forward to begin the surplus decomposition.</div>
+</div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Surplus Calculation Details</div>
+<div class="accordion-body">
+<p><strong>CS change:</strong> Consumers pay $70 instead of $80, buy 4 instead of 3. CS gain = trapezoid = &frac12;(3+4)&times;10 = <b>35</b>.</p>
+<p><strong>PS change:</strong> Producers receive $90 instead of $80, sell 4 instead of 3. PS gain = trapezoid = &frac12;(3+4)&times;10 = <b>35</b>.</p>
+<p><strong>Gov cost:</strong> Subsidy of $20 on 4 units = rectangle = <b>80</b>.</p>
+<p><strong>3rd party gain:</strong> MEB &times; extra unit = <b>20</b>.</p>
+<p><strong>Net:</strong> +35 +35 &minus;80 + 20 = <b>+10</b> = &frac12;&times;1&times;20 = efficiency gain triangle area. (Matches sec5!)</p>
+</div>
+</div>
+</section>
+
+<!-- ============ CASE 4: Dr. Galal Positive Ext + Subsidy ============ -->
+<section>
+<h2>Case 4: Dr. Galal Positive Externality + Subsidy = $20</h2>
+<div class="case-formulas">
+<p>\(\text{MPC} = \text{MSC} = 10 + Q\) &nbsp;(no external cost)</p>
+<p>\(\text{MPB} = 90 - Q\)</p>
+<p>\(\text{MEB} = 20\) (constant) &rarr; \(\text{MSB} = 110 - Q\)</p>
+<p><strong>Market (MPB=MPC):</strong> Q=40, P=$50 &nbsp;|&nbsp; <strong>After Subsidy (MSB=MSC):</strong> Q=50, P<sub>c</sub>=$40, P<sub>p</sub>=$60</p>
+</div>
+<div id="chart-case4" class="plotly-chart"></div>
+<div class="anim-controls">
+<button class="anim-btn" onclick="playCase('case4')" id="case4-play-btn">&#9654; Play</button>
+<button class="anim-btn" onclick="pauseCase('case4')">&#9646;&#9646; Pause</button>
+<button class="anim-btn" onclick="stepForward('case4')">&#9197; Step</button>
+<button class="anim-btn" onclick="resetCase('case4')">&#8634; Reset</button>
+</div>
+<div class="step-panel">
+<div class="step-counter" id="case4-counter">Ready</div>
+<div class="step-text" id="case4-text">Click Play or Step Forward to begin the surplus decomposition.</div>
+</div>
+
+<div class="accordion">
+<div class="accordion-header" onclick="toggleAccordion(this)">Surplus Calculation Details</div>
+<div class="accordion-body">
+<p><strong>CS change:</strong> Consumers pay $40 instead of $50, buy 50 instead of 40. CS gain = trapezoid = &frac12;(40+50)&times;10 = <b>450</b>.</p>
+<p><strong>PS change:</strong> Producers receive $60 instead of $50, sell 50 instead of 40. PS gain = trapezoid = &frac12;(40+50)&times;10 = <b>450</b>.</p>
+<p><strong>Gov cost:</strong> Subsidy of $20 on 50 units = rectangle = <b>1000</b>.</p>
+<p><strong>3rd party gain:</strong> MEB &times; 10 extra units = <b>200</b>.</p>
+<p><strong>Net:</strong> +450 +450 &minus;1000 + 200 = <b>+100</b> = &frac12;&times;10&times;20 = efficiency gain triangle area.</p>
+</div>
+</div>
+</section>
+
+<!-- ============ SUMMARY TABLE ============ -->
+<section>
+<h2>Summary: All 4 Cases</h2>
+
+<div style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Case</th><th>Ext. Type</th><th>Policy</th><th>CS</th><th>PS</th><th>Gov</th><th>3rd Party</th><th>Net</th><th>Triangle</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Negative (MEC=20)</td><td>Tax $20</td><td class="tally-neg">&minus;350</td><td class="tally-neg">&minus;350</td><td class="tally-pos">+600</td><td class="tally-pos">+200</td><td class="tally-net">+100</td><td>&frac12;&times;10&times;20</td></tr>
+<tr><td>2</td><td>Negative (MEC=20)</td><td>Tax $20</td><td class="tally-neg">&minus;25</td><td class="tally-neg">&minus;25</td><td class="tally-pos">+40</td><td class="tally-pos">+20</td><td class="tally-net">+10</td><td>&frac12;&times;1&times;20</td></tr>
+<tr><td>3</td><td>Positive (MEB=20)</td><td>Subsidy $20</td><td class="tally-pos">+35</td><td class="tally-pos">+35</td><td class="tally-neg">&minus;80</td><td class="tally-pos">+20</td><td class="tally-net">+10</td><td>&frac12;&times;1&times;20</td></tr>
+<tr><td>4</td><td>Positive (MEB=20)</td><td>Subsidy $20</td><td class="tally-pos">+450</td><td class="tally-pos">+450</td><td class="tally-neg">&minus;1000</td><td class="tally-pos">+200</td><td class="tally-net">+100</td><td>&frac12;&times;10&times;20</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="conclusion-box">
+<h3>Conclusion</h3>
+<p>In <strong>ALL 4 cases</strong>, the individual surplus changes (CS, PS, Gov, 3rd party) are different shapes and sizes, but they <strong>always sum to the triangle between MSB and MSC</strong>.</p>
+<p style="margin-top:10px;font-size:.95em;">This is why the DWL/efficiency gain is always \(\frac{1}{2} \times \Delta Q \times \text{MEC or MEB}\) &mdash; it's the area between MSB and MSC from Q<sub>market</sub> to Q<sub>efficient</sub>.</p>
+</div>
+</section>
+
+</div>
+
+<script>
+// ============ CASE DATA DEFINITIONS ============
+var CASES = {
+  case1: {
+    divId: 'chart-case1',
+    type: 'negative',
+    // Curve functions
+    mpb: function(q){return 90-q;},
+    mpc: function(q){return 10+q;},
+    msc: function(q){return 30+q;},   // MSC = MPC + MEC(20)
+    msb: function(q){return 90-q;},   // MSB = MPB (no ext benefit)
+    // Labels
+    line1Label: 'MPB = MSB',
+    line2Label: 'MPC',
+    line3Label: 'MSC = MPC + 20',
+    // Colors for lines
+    line1Color: '#7b1fa2', line2Color: '#1565c0', line3Color: '#c62828',
+    line3Dash: 'dash',
+    // Equilibrium points
+    qMarket: 40, pMarket: 50,
+    qEff: 30, pcNew: 60, ppNew: 40,
+    // Axis ranges
+    qMax: 60, pMax: 110, qDtick: 10, pDtick: 20,
+    // Surplus values
+    csVal: -350, psVal: -350, govVal: 600, thirdVal: 200, netVal: 100,
+    // Polygon coordinates (pre-computed from plan)
+    csX: [0,30,40,0], csY: [60,60,50,50],
+    psX: [0,40,30,0], psY: [50,50,40,40],
+    govX: [0,30,30,0], govY: [40,40,60,60],
+    thirdX: [30,40,40,30], thirdY: [40,50,70,60],
+    dwlX: [30,40,40], dwlY: [60,50,70],
+    // Area colors (negative ext = losses for CS/PS)
+    csColor: 'rgba(244,67,54,0.2)', csBorder: '#f44336',
+    psColor: 'rgba(183,28,28,0.2)', psBorder: '#b71c1c',
+    govColor: 'rgba(33,150,243,0.15)', govBorder: '#2196f3',
+    thirdColor: 'rgba(0,150,136,0.25)', thirdBorder: '#009688',
+    // Step descriptions
+    stepTexts: [
+      'Click Play or Step Forward to begin the surplus decomposition.',
+      '<b>Step 1:</b> Draw all curves and mark equilibrium points. Market E\u2081 at Q=40, P=$50. Efficient E* at Q=30 (where MSB=MSC).',
+      '<b>Step 2: CS Loss</b> = <span class="tally-neg">&minus;$350</span>. Consumers pay $60 instead of $50 and buy 30 instead of 40. Trapezoid area = \u00bd(40+30)\u00d710.',
+      '<b>Step 3: + PS Loss</b> = <span class="tally-neg">&minus;$350</span>. Producers receive $40 instead of $50 and sell 30 instead of 40.<br>Running tally: <span class="tally-neg">&minus;350</span> <span class="tally-neg">&minus;350</span> = <span class="tally-neg">&minus;700</span>',
+      '<b>Step 4: + Gov Revenue</b> = <span class="tally-pos">+$600</span>. Tax of $20 on 30 units = rectangle.<br>Running tally: <span class="tally-neg">&minus;700</span> + <span class="tally-pos">600</span> = <span class="tally-neg">&minus;100</span>',
+      '<b>Step 5: + 3rd Party Gain</b> = <span class="tally-pos">+$200</span>. Reduced pollution on units 30\u201340, valued at MEC=$20 per unit + saved external cost.<br>Running tally: <span class="tally-neg">&minus;100</span> + <span class="tally-pos">200</span> = <span class="tally-net">+100</span>',
+      '<b>Step 6:</b> All areas cancel, leaving only the <span style="color:#e65100"><b>net efficiency gain = $100</b></span> triangle between MSB and MSC. &nbsp; \u00bd \u00d7 10 \u00d7 20 = 100 \u2713'
+    ]
+  },
+  case2: {
+    divId: 'chart-case2',
+    type: 'negative',
+    mpb: function(q){return 110-10*q;},
+    mpc: function(q){return 50+10*q;},
+    msc: function(q){return 70+10*q;},
+    msb: function(q){return 110-10*q;},
+    line1Label: 'MPB = MSB', line2Label: 'MPC', line3Label: 'MSC = MPC + 20',
+    line1Color: '#7b1fa2', line2Color: '#1565c0', line3Color: '#c62828',
+    line3Dash: 'dash',
+    qMarket: 3, pMarket: 80,
+    qEff: 2, pcNew: 90, ppNew: 70,
+    qMax: 7, pMax: 130, qDtick: 1, pDtick: 20,
+    csVal: -25, psVal: -25, govVal: 40, thirdVal: 20, netVal: 10,
+    csX: [0,2,3,0], csY: [90,90,80,80],
+    psX: [0,3,2,0], psY: [80,80,70,70],
+    govX: [0,2,2,0], govY: [70,70,90,90],
+    thirdX: [2,3,3,2], thirdY: [70,80,100,90],
+    dwlX: [2,3,3], dwlY: [90,80,100],
+    csColor: 'rgba(244,67,54,0.2)', csBorder: '#f44336',
+    psColor: 'rgba(183,28,28,0.2)', psBorder: '#b71c1c',
+    govColor: 'rgba(33,150,243,0.15)', govBorder: '#2196f3',
+    thirdColor: 'rgba(0,150,136,0.25)', thirdBorder: '#009688',
+    stepTexts: [
+      'Click Play or Step Forward to begin the surplus decomposition.',
+      '<b>Step 1:</b> Draw all curves. Market E\u2081 at Q=3, P=$80. Efficient E* at Q=2, P=$90 (MSB=MSC).',
+      '<b>Step 2: CS Loss</b> = <span class="tally-neg">&minus;$25</span>. Consumers pay $90 instead of $80 and buy 2 instead of 3. Trapezoid = \u00bd(3+2)\u00d710.',
+      '<b>Step 3: + PS Loss</b> = <span class="tally-neg">&minus;$25</span>. Producers receive $70 instead of $80 and sell 2 instead of 3.<br>Running tally: <span class="tally-neg">&minus;25</span> <span class="tally-neg">&minus;25</span> = <span class="tally-neg">&minus;50</span>',
+      '<b>Step 4: + Gov Revenue</b> = <span class="tally-pos">+$40</span>. Tax of $20 on 2 units = $40 rectangle.<br>Running tally: <span class="tally-neg">&minus;50</span> + <span class="tally-pos">40</span> = <span class="tally-neg">&minus;10</span>',
+      '<b>Step 5: + 3rd Party Gain</b> = <span class="tally-pos">+$20</span>. Reduced pollution on 1 unit, valued at MEC=$20.<br>Running tally: <span class="tally-neg">&minus;10</span> + <span class="tally-pos">20</span> = <span class="tally-net">+10</span>',
+      '<b>Step 6:</b> All areas cancel, leaving the <span style="color:#e65100"><b>net efficiency gain = $10</b></span> triangle between MSB and MSC. &nbsp; \u00bd \u00d7 1 \u00d7 20 = 10 \u2713 (matches sec9!)'
+    ]
+  },
+  case3: {
+    divId: 'chart-case3',
+    type: 'positive',
+    mpb: function(q){return 110-10*q;},
+    mpc: function(q){return 50+10*q;},
+    msc: function(q){return 50+10*q;},
+    msb: function(q){return 130-10*q;},
+    line1Label: 'MPC = MSC', line2Label: 'MPB', line3Label: 'MSB = MPB + 20',
+    line1Color: '#1565c0', line2Color: '#7b1fa2', line3Color: '#2e7d32',
+    line3Dash: 'dash',
+    qMarket: 3, pMarket: 80,
+    qEff: 4, pcNew: 70, ppNew: 90,
+    qMax: 7, pMax: 140, qDtick: 1, pDtick: 20,
+    csVal: 35, psVal: 35, govVal: -80, thirdVal: 20, netVal: 10,
+    csX: [0,3,4,0], csY: [80,80,70,70],
+    psX: [0,3,4,0], psY: [80,80,90,90],
+    govX: [0,4,4,0], govY: [70,70,90,90],
+    thirdX: [3,4,4,3], thirdY: [80,70,90,100],
+    dwlX: [3,3,4], dwlY: [80,100,90],
+    csColor: 'rgba(76,175,80,0.2)', csBorder: '#4caf50',
+    psColor: 'rgba(27,94,32,0.2)', psBorder: '#1b5e20',
+    govColor: 'rgba(255,152,0,0.15)', govBorder: '#ff9800',
+    thirdColor: 'rgba(0,150,136,0.25)', thirdBorder: '#009688',
+    stepTexts: [
+      'Click Play or Step Forward to begin the surplus decomposition.',
+      '<b>Step 1:</b> Draw all curves. Market E\u2081 at Q=3, P=$80. Efficient E* at Q=4 (where MSB=MSC).',
+      '<b>Step 2: CS Gain</b> = <span class="tally-pos">+$35</span>. Consumers pay $70 instead of $80 and buy 4 instead of 3. Trapezoid = \u00bd(3+4)\u00d710.',
+      '<b>Step 3: + PS Gain</b> = <span class="tally-pos">+$35</span>. Producers receive $90 instead of $80 and sell 4 instead of 3.<br>Running tally: <span class="tally-pos">+35</span> + <span class="tally-pos">35</span> = <span class="tally-pos">+70</span>',
+      '<b>Step 4: + Gov Cost</b> = <span class="tally-neg">&minus;$80</span>. Subsidy of $20 on 4 units = $80 rectangle.<br>Running tally: <span class="tally-pos">+70</span> <span class="tally-neg">&minus;80</span> = <span class="tally-neg">&minus;10</span>',
+      '<b>Step 5: + 3rd Party Gain</b> = <span class="tally-pos">+$20</span>. Extra vaccination benefits society: MEB=$20 on 1 new unit.<br>Running tally: <span class="tally-neg">&minus;10</span> + <span class="tally-pos">20</span> = <span class="tally-net">+10</span>',
+      '<b>Step 6:</b> All areas cancel, leaving the <span style="color:#e65100"><b>net efficiency gain = $10</b></span> triangle between MSB and MSC. &nbsp; \u00bd \u00d7 1 \u00d7 20 = 10 \u2713 (matches sec5!)'
+    ]
+  },
+  case4: {
+    divId: 'chart-case4',
+    type: 'positive',
+    mpb: function(q){return 90-q;},
+    mpc: function(q){return 10+q;},
+    msc: function(q){return 10+q;},
+    msb: function(q){return 110-q;},
+    line1Label: 'MPC = MSC', line2Label: 'MPB', line3Label: 'MSB = MPB + 20',
+    line1Color: '#1565c0', line2Color: '#7b1fa2', line3Color: '#2e7d32',
+    line3Dash: 'dash',
+    qMarket: 40, pMarket: 50,
+    qEff: 50, pcNew: 40, ppNew: 60,
+    qMax: 70, pMax: 120, qDtick: 10, pDtick: 20,
+    csVal: 450, psVal: 450, govVal: -1000, thirdVal: 200, netVal: 100,
+    csX: [0,40,50,0], csY: [50,50,40,40],
+    psX: [0,40,50,0], psY: [50,50,60,60],
+    govX: [0,50,50,0], govY: [40,40,60,60],
+    thirdX: [40,50,50,40], thirdY: [50,40,60,70],
+    dwlX: [40,40,50], dwlY: [50,70,60],
+    csColor: 'rgba(76,175,80,0.2)', csBorder: '#4caf50',
+    psColor: 'rgba(27,94,32,0.2)', psBorder: '#1b5e20',
+    govColor: 'rgba(255,152,0,0.15)', govBorder: '#ff9800',
+    thirdColor: 'rgba(0,150,136,0.25)', thirdBorder: '#009688',
+    stepTexts: [
+      'Click Play or Step Forward to begin the surplus decomposition.',
+      '<b>Step 1:</b> Draw all curves. Market E\u2081 at Q=40, P=$50. Efficient E* at Q=50 (where MSB=MSC).',
+      '<b>Step 2: CS Gain</b> = <span class="tally-pos">+$450</span>. Consumers pay $40 instead of $50 and buy 50 instead of 40. Trapezoid = \u00bd(40+50)\u00d710.',
+      '<b>Step 3: + PS Gain</b> = <span class="tally-pos">+$450</span>. Producers receive $60 instead of $50 and sell 50 instead of 40.<br>Running tally: <span class="tally-pos">+450</span> + <span class="tally-pos">450</span> = <span class="tally-pos">+900</span>',
+      '<b>Step 4: + Gov Cost</b> = <span class="tally-neg">&minus;$1000</span>. Subsidy of $20 on 50 units = $1000 rectangle.<br>Running tally: <span class="tally-pos">+900</span> <span class="tally-neg">&minus;1000</span> = <span class="tally-neg">&minus;100</span>',
+      '<b>Step 5: + 3rd Party Gain</b> = <span class="tally-pos">+$200</span>. External benefit MEB=$20 on 10 extra units.<br>Running tally: <span class="tally-neg">&minus;100</span> + <span class="tally-pos">200</span> = <span class="tally-net">+100</span>',
+      '<b>Step 6:</b> All areas cancel, leaving the <span style="color:#e65100"><b>net efficiency gain = $100</b></span> triangle between MSB and MSC. &nbsp; \u00bd \u00d7 10 \u00d7 20 = 100 \u2713'
+    ]
+  }
+};
+
+// ============ ANIMATION STATE ============
+var animState = {};
+Object.keys(CASES).forEach(function(key) {
+  animState[key] = { step: 0, timer: null, playing: false };
+});
+
+// ============ BUILD TRACES FOR A CASE ============
+// 10 traces per case: 3 lines, 2 markers, CS, PS, Gov, 3rd, DWL
+function buildTraces(key) {
+  var c = CASES[key];
+  var qRange = [];
+  var step = c.qMax <= 10 ? 0.1 : 1;
+  for (var i = 0; i <= c.qMax; i += step) qRange.push(Math.round(i*10)/10);
+
+  var traces = [];
+
+  // Trace 0: Line 1
+  traces.push({
+    x: qRange, y: qRange.map(c.type === 'negative' ? c.mpb : c.mpc),
+    mode: 'lines', name: c.line1Label,
+    line: { color: c.line1Color, width: 3 },
+    visible: false
+  });
+
+  // Trace 1: Line 2
+  traces.push({
+    x: qRange, y: qRange.map(c.type === 'negative' ? c.mpc : c.mpb),
+    mode: 'lines', name: c.line2Label,
+    line: { color: c.line2Color, width: 3 },
+    visible: false
+  });
+
+  // Trace 2: Line 3 (dashed social curve)
+  traces.push({
+    x: qRange, y: qRange.map(c.type === 'negative' ? c.msc : c.msb),
+    mode: 'lines', name: c.line3Label,
+    line: { color: c.line3Color, width: 3, dash: c.line3Dash },
+    visible: false
+  });
+
+  // Trace 3: E1 marker
+  traces.push({
+    x: [c.qMarket], y: [c.pMarket],
+    mode: 'markers+text', name: 'E\u2081 (Market)',
+    marker: { color: '#7b1fa2', size: 12, symbol: 'circle', line: { color: '#fff', width: 2 } },
+    text: ['E\u2081 (Q=' + c.qMarket + ', P=$' + c.pMarket + ')'],
+    textposition: 'bottom right',
+    textfont: { size: 11, color: '#7b1fa2' },
+    visible: false, showlegend: false
+  });
+
+  // Trace 4: E* marker
+  var ePriceLabel = c.type === 'negative' ? c.pcNew : c.ppNew;
+  traces.push({
+    x: [c.qEff], y: [ePriceLabel],
+    mode: 'markers+text', name: 'E* (Efficient)',
+    marker: { color: '#2e7d32', size: 12, symbol: 'diamond', line: { color: '#fff', width: 2 } },
+    text: ['E* (Q=' + c.qEff + ')'],
+    textposition: 'top left',
+    textfont: { size: 11, color: '#2e7d32' },
+    visible: false, showlegend: false
+  });
+
+  // Trace 5: CS area
+  var csLabel = c.csVal < 0 ? 'CS: ' + c.csVal : 'CS: +' + c.csVal;
+  traces.push({
+    x: c.csX, y: c.csY,
+    fill: 'toself', fillcolor: c.csColor,
+    line: { color: c.csBorder, width: 1.5 },
+    mode: 'lines', name: csLabel,
+    visible: false, showlegend: true
+  });
+
+  // Trace 6: PS area
+  var psLabel = c.psVal < 0 ? 'PS: ' + c.psVal : 'PS: +' + c.psVal;
+  traces.push({
+    x: c.psX, y: c.psY,
+    fill: 'toself', fillcolor: c.psColor,
+    line: { color: c.psBorder, width: 1.5 },
+    mode: 'lines', name: psLabel,
+    visible: false, showlegend: true
+  });
+
+  // Trace 7: Gov area
+  var govLabel = c.govVal < 0 ? 'Gov: ' + c.govVal : 'Gov: +' + c.govVal;
+  traces.push({
+    x: c.govX, y: c.govY,
+    fill: 'toself', fillcolor: c.govColor,
+    line: { color: c.govBorder, width: 1.5 },
+    mode: 'lines', name: govLabel,
+    visible: false, showlegend: true
+  });
+
+  // Trace 8: 3rd party area
+  traces.push({
+    x: c.thirdX, y: c.thirdY,
+    fill: 'toself', fillcolor: c.thirdColor,
+    line: { color: c.thirdBorder, width: 1.5 },
+    mode: 'lines', name: '3rd: +' + c.thirdVal,
+    visible: false, showlegend: true
+  });
+
+  // Trace 9: DWL/Efficiency gain triangle
+  traces.push({
+    x: c.dwlX.concat([c.dwlX[0]]), y: c.dwlY.concat([c.dwlY[0]]),
+    fill: 'toself', fillcolor: 'rgba(255,152,0,0.35)',
+    line: { color: '#ff9800', width: 2.5 },
+    mode: 'lines', name: 'Net: +' + c.netVal,
+    visible: false, showlegend: true
+  });
+
+  c._traces = traces;
+}
+
+// ============ VISIBILITY MAP PER STEP ============
+// Returns array of 10 booleans for each trace's visibility at given step
+function getVisibility(step) {
+  // Traces: 0=line1, 1=line2, 2=line3, 3=E1, 4=E*, 5=CS, 6=PS, 7=Gov, 8=3rd, 9=DWL
+  switch(step) {
+    case 0: return [false,false,false,false,false,false,false,false,false,false];
+    case 1: return [true,true,true,true,true,false,false,false,false,false];
+    case 2: return [true,true,true,true,true,true,false,false,false,false];
+    case 3: return [true,true,true,true,true,true,true,false,false,false];
+    case 4: return [true,true,true,true,true,true,true,true,false,false];
+    case 5: return [true,true,true,true,true,true,true,true,true,false];
+    case 6: return [true,true,true,true,true,false,false,false,false,true];
+    default: return [false,false,false,false,false,false,false,false,false,false];
+  }
+}
+
+// ============ ANNOTATIONS FOR DWL LABEL ============
+function getAnnotations(key, step) {
+  if (step !== 6) return [];
+  var c = CASES[key];
+  // Centroid of the DWL triangle
+  var cx = (c.dwlX[0] + c.dwlX[1] + c.dwlX[2]) / 3;
+  var cy = (c.dwlY[0] + c.dwlY[1] + c.dwlY[2]) / 3;
+  return [{
+    x: cx, y: cy,
+    text: '<b>Net = +$' + c.netVal + '</b>',
+    showarrow: true, arrowhead: 0, arrowcolor: '#ff9800',
+    ax: 40, ay: -30,
+    font: { size: 13, color: '#e65100' },
+    bgcolor: 'rgba(255,255,255,0.95)',
+    bordercolor: '#ff9800', borderpad: 5, borderwidth: 1.5
+  }];
+}
+
+// ============ RENDER A STEP ============
+function renderStep(key) {
+  var c = CASES[key];
+  var s = animState[key];
+  var div = document.getElementById(c.divId);
+
+  var vis = getVisibility(s.step);
+  Plotly.restyle(div, { visible: vis });
+  Plotly.relayout(div, { annotations: getAnnotations(key, s.step) });
+
+  document.getElementById(key + '-counter').textContent =
+    s.step === 0 ? 'Ready' : 'Step ' + s.step + ' of 6';
+  document.getElementById(key + '-text').innerHTML = c.stepTexts[s.step];
+}
+
+// ============ ANIMATION CONTROLS ============
+function stepForward(key) {
+  var s = animState[key];
+  if (s.step >= 6) return;
+  s.step++;
+  renderStep(key);
+  if (s.step >= 6) pauseCase(key);
+}
+
+function resetCase(key) {
+  pauseCase(key);
+  animState[key].step = 0;
+  renderStep(key);
+}
+
+function playCase(key) {
+  var s = animState[key];
+  if (s.playing) return;
+  if (s.step >= 6) { s.step = 0; renderStep(key); }
+  s.playing = true;
+  document.getElementById(key + '-play-btn').classList.add('playing');
+  s.timer = setInterval(function() {
+    if (s.step >= 6) { pauseCase(key); return; }
+    s.step++;
+    renderStep(key);
+  }, 2000);
+}
+
+function pauseCase(key) {
+  var s = animState[key];
+  if (s.timer) { clearInterval(s.timer); s.timer = null; }
+  s.playing = false;
+  document.getElementById(key + '-play-btn').classList.remove('playing');
+}
+
+// ============ INIT CHARTS ============
+function initCharts() {
+  Object.keys(CASES).forEach(function(key) {
+    buildTraces(key);
+    var c = CASES[key];
+    var layout = {
+      xaxis: { title: 'Quantity (Q)', range: [0, c.qMax], dtick: c.qDtick },
+      yaxis: { title: 'Price ($)', range: [0, c.pMax], dtick: c.pDtick },
+      showlegend: true,
+      legend: { x: 0.55, y: 1.0, bgcolor: 'rgba(255,255,255,0.85)', bordercolor: '#ccc', borderwidth: 1, font: { size: 11 } },
+      margin: { t: 10, r: 20, b: 50, l: 60 },
+      annotations: [],
+      hovermode: 'closest'
+    };
+    Plotly.newPlot(c.divId, c._traces, layout, { responsive: true, displayModeBar: false });
+  });
+}
+</script>
+
+</body>
+</html>
